@@ -1,0 +1,203 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - inventory-NetLab.yml
+    - config-undeploy.yml
+# ansible-playbook dedep_logicalnet.yml --extra-vars="@service-*-dedep.yml"
+  tasks:
+  - name: gather moid | default() for ds
+    vcenter_gather_moids:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      datacenter_name: "{{ vcenter_dc }}"
+      datastore_name: "{{ vcenter_datastore }}"
+      validate_certs: False
+    register: gather_moids_ds
+    tags: moids
+  - name: gather moid | default() for cl
+    vcenter_gather_moids:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      datacenter_name: "{{ vcenter_dc }}"
+      cluster_name: "{{ vcenter_edge_cluster }}"
+      validate_certs: False
+    register: gather_moids_cl
+    tags: moids
+  - name: gather moid | default() for mgmt portgroup
+    vcenter_gather_moids:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      datacenter_name: "{{ vcenter_dc }}"
+      portgroup_name: "{{ vcenter_mgmt_pg }}"
+      validate_certs: False
+    register: gather_moids_pg
+    tags: moids
+  - name: gather moid | default() for uplink portgroup
+    vcenter_gather_moids:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      datacenter_name: "{{ vcenter_dc }}"
+      portgroup_name: "PG-Edge-Transit"
+      validate_certs: False
+    register: gather_moids_upl_pg
+    tags: moids
+ 
+#   - name: gather moid | noVLAN portgroup
+#     vcenter_gather_moids:
+#       hostname: "{{ vcenter }}"
+#       username: "{{ vcenter_user }}"
+#       password: "{{ vcenter_pwd }}"
+#       datacenter_name: "{{ vcenter_dc }}"
+#       portgroup_name: "noVLAN"
+#       validate_certs: False
+#     register: gather_moid_pg_novlan
+#     tags: moids
+# 
+#   - name: gather VM instance uuids
+#     vcenter_gather_uuids:
+#       hostname: "{{ vcenter }}"
+#       username: "{{ vcenter_user }}"
+#       password: "{{ vcenter_pwd }}"
+#       datacenter_name: "{{ vcenter_dc }}"
+#       vm_name: "{{ item.name }}"
+#       uuid_type: "instance"
+#       validate_certs: False
+#     with_list: "{{ vms }}"
+#     register: gather_uuids_vms
+#     tags: uuids
+
+  - name: DFW section deletion
+    nsx_dfw_section:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      validate_certs: False
+      nsxmanager_spec: "{{ nsxmanager_spec }}"
+      state: "{{ item.state }}"
+      name: "{{ item.name }}"
+      section_type: "{{ item.section_type }}"
+      rules: "{{ item.rules }}"
+    with_list: "{{ dfw_sections }}"
+    register: delete_dfw_section
+    tags: dfw_section_delete
+
+  - name: VM ports migration
+    vcenter_change_vnic:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      state: "{{ item.state }}"
+      vm_name: "{{ item.name }}"
+      network: "{{ item.network }}"
+      validate_certs: False
+    with_list: "{{ vms }}"
+    register: change_vnic
+    tags: change_vnic
+
+#  - name: LBs deletion
+#    simple_load_balancer:
+#      nsxmanager_spec: "{{ nsxmanager_spec }}"
+#      state: "{{ item.state }}"
+#      nsx_edge_gateway_name: "{{ item.nsx_edge_gateway_name }}"
+#      app_profile_name_http: "{{ item.app_profile_name_http }}"
+#      monitor_name: "{{ item.monitor_name }}"
+#      monitor_type: "{{ item.monitor_type }}"
+#      monitor_interval: "{{ item.monitor_interval }}"
+#      monitor_time_out: "{{ item.monitor_time_out }}"
+#      monitor_retries: "{{ item.monitor_retries }}"
+#      monitor_url_method: "{{ item.monitor_url_method }}"
+#      monitor_url: "{{ item.monitor_url }}"
+#      http_pool_name: "{{ item.http_pool_name }}"
+#      http_pool_first_member_name: "{{ item.http_pool_first_member_name }}"
+#      http_pool_first_member_ip: "{{ item.http_pool_first_member_ip }}"
+#      http_pool_first_member_port: "{{ item.http_pool_first_member_port }}"
+#      http_pool_first_member_monitor_port: "{{ item.http_pool_first_member_monitor_port }}"
+#      http_pool_second_member_name: "{{ item.http_pool_second_member_name }}"
+#      http_pool_second_member_ip: "{{ item.http_pool_second_member_ip }}"
+#      http_pool_second_member_port: "{{ item.http_pool_second_member_port }}"
+#      http_pool_second_member_monitor_port: "{{ item.http_pool_second_member_monitor_port }}"
+#      http_virtual_server_name: "{{ item.http_virtual_server_name }}"
+#      virtual_ip_address: "{{ item.virtual_ip_address }}"
+#      http_virtual_server_port: "{{ item.http_virtual_server_port }}"
+#    with_list: "{{ simple_load_balancers }}"
+#    register: delete_lb
+#    tags: lb_delete
+
+  - name: ESGs deletion
+    nsx_edge_router:
+      nsxmanager_spec: "{{ nsxmanager_spec }}"
+      state: "{{ item.state }}"
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      appliance_size: "{{ item.appliance_size }}"
+      resourcepool_moid: "{{ gather_moids_cl.object_id | default() }}"
+      datastore_moid: "{{ gather_moids_ds.object_id | default() }}"
+      datacenter_moid: "{{ gather_moids_cl.datacenter_moid | default() }}"
+      interfaces: "{{ item.interfaces }}"
+      default_gateway: "{{ item.default_gateway }}"
+      routes: "{{ item.routes | default() }}"
+      remote_access: "{{ item.remote_access }}"
+      username: "{{ item.username }}"
+      password: "{{ item.password }}"
+      firewall: "{{ item.firewall }}"
+      ha_enabled: "{{ item.ha_enabled }}"
+    with_list: "{{ edge_routers }}"
+    register: delete_esg
+    tags: esg_delete
+
+  - name: DLRs delete
+    nsx_dlr:
+      nsxmanager_spec: "{{ nsxmanager_spec }}"
+      state: "{{ item.state }}"
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      resourcepool_moid: "{{ gather_moids_cl.object_id | default() }}"
+      datastore_moid: "{{ gather_moids_ds.object_id | default() }}"
+      datacenter_moid: "{{ gather_moids_cl.datacenter_moid | default() }}"
+      mgmt_portgroup_moid: "{{ gather_moids_pg.object_id | default() }}"
+      interfaces: "{{ item.interfaces }}"
+#        - name: "{{ dlr_networks.app1.name }}"
+#          ip: "{{ dlr_networks.app1.ip }}"
+#          prefix_len: "{{ dlr_networks.app1.prefix_len }}"
+#          logical_switch: "{{ dlr_networks.app1.logical_switch }}"
+#          iftype: "{{ dlr_networks.app1.iftype }}"
+      default_gateway: "{{ item.default_gateway }}"
+      remote_access: "{{ item.remote_access }}"
+      username: "{{ item.username }}"
+      password: "{{ item.password }}"
+      ha_enabled: "{{ item.ha_enabled }}"
+    with_list: "{{ dlrs }}"
+    register: delete_dlr
+    tags: dlr_delete
+
+  - name: logical switches deletion
+    nsx_logical_switch:
+      nsxmanager_spec: "{{ nsxmanager_spec }}"
+      state: "{{ item.state }}"
+      transportzone: "{{ transportZoneName }}"
+      name: "{{ item.name }}"
+      controlplanemode: "{{ defaultControllPlaneMode }}"
+      description: "{{ item.description }}"
+    with_list: "{{ logical_switches }}"
+    register: logical_switch
+    tags: lswitch_delete
+
+#  - name: delete dvPortgroup
+#    vcenter_dvportgroup:
+#      hostname: "{{ vcenter }}"
+#      username: "{{ vcenter_user }}"
+#      password: "{{ vcenter_pwd }}"
+#      state: "{{ item.state }}"
+#      dvpg_name: "{{ item.name }}"
+#      validate_certs: False
+#    with_list: "{{ dvportgroup }}"
+#    register: delete_dvpg
+#    tags: delete_dvpg
+#
+#  - debug: msg="{{ gather_moids_cl }}"

@@ -1,0 +1,215 @@
+---
+vms:
+    - {name: 'CentOS-Test01', vds: 'VDS0', network: 'AdvLab-Test0', state: 'present'}
+    - {name: 'CentOS-Test02', vds: 'VDS2', network: 'AdvLab-Test0', state: 'present'}
+    - {name: 'CentOS-Test03', vds: 'VDS0', network: 'AdvLab-Test1', state: 'present'}
+    - {name: 'CentOS-Test04', vds: 'VDS2', network: 'AdvLab-Test1', state: 'present'}
+
+logical_switches:
+    - {name: 'AdvLab-Transit', description: 'Transit logical-switch for AdvLab', state: 'present'}
+    - {name: 'AdvLab-Test0', description: 'Test0 logical-switch for AdvLab', state: 'present'}
+    - {name: 'AdvLab-Test1', description: 'Test1 logical-switch for AdvLab', state: 'present'}
+
+#dvportgroup:
+
+dlrs:
+    - name: 'AdvLab-DLR'
+      description: 'DLR for AdvLab' 
+      state: 'present'
+      interfaces:
+        - {name: 'Uplink-to-Edge', iftype: 'uplink', logical_switch: 'AdvLab-Transit', ip: '10.10.1.1', prefix_len: 24}
+        - {name: 'Test0-IF', iftype: 'internal', logical_switch: 'AdvLab-Test0', ip: '10.10.10.254', prefix_len: 24}
+        - {name: 'Test1-IF', iftype: 'internal', logical_switch: 'AdvLab-Test1', ip: '10.10.11.254', prefix_len: 24}
+      default_gateway: '10.10.1.254'
+      remote_access: 'true'
+      username: 'admin'
+      password: 'vmwareNSX1!!'
+      ha_enabled: 'false'
+#      ha_network: 'noVLAN'
+#      size: 'compact'
+
+edge_routers:
+    - name: 'AdvLab-ESG'
+      description: 'ESG for AdvLab'
+      state: 'present'
+      # default_pg: 'noVLAN'
+      interfaces:
+        vnic0: {name: 'Uplink-to-Physical', iftype: 'uplink', ip: '10.10.1.1', prefix_len: 24, portgroup_id: "{{ gather_moids_upl_pg.object_id | default() }}", fence_param: 'ethernet0.filter1.param1=1'}
+        vnic1: {name: 'Test0-IF', iftype: 'internal', ip: '10.10.10.254', prefix_len: 24, logical_switch: 'AdvLab-Test0', fence_param: 'ethernet0.filter1.param1=1'}
+        vnic2: {name: 'Test1-IF', iftype: 'internal', ip: '10.10.11.254', prefix_len: 24, logical_switch: 'AdvLab-Test1', fence_param: 'ethernet0.filter1.param1=1'}
+      default_gateway: '10.10.1.254'
+      routes:
+#        - {network: '192.168.32.0/22', next_hop: '192.168.32.1', admin_distance: '1', mtu: '1500', description: 'Route to AdvLab networks' }
+      remote_access: 'true'
+      username: 'admin'
+      password: 'vmwareNSX1!!'
+      firewall: 'false'
+      ha_enabled: 'false'
+#      ha_network: 'noVLAN'
+      appliance_size: 'compact'
+
+    - name: 'AdvLab-Edge-LB'
+      description: 'ESG for LB in AdvLab network' 
+      state: 'present'
+      # default_pg: 'noVLAN'
+      interfaces:
+        vnic0: {name: 'Web-IF', iftype: 'uplink', ip: '10.10.11.10', prefix_len: 24, logical_switch: 'AdvLab-Test1', fence_param: 'ethernet0.filter1.param1=1'}
+      default_gateway: '10.10.11.254'
+      remote_access: 'true'
+      username: 'admin'
+      password: 'vmwareNSX1!!'
+      firewall: 'false'
+      ha_enabled: 'false'
+#      ha_network: 'noVLAN'
+      appliance_size: 'compact'
+
+simple_load_balancers:
+    - nsx_edge_gateway_name: 'AdvLab-Edge-LB'
+      description: 'LB config for AdvLab'
+      state: 'present'
+      app_profile_name_http: 'Profile-HTTP'
+      monitor_name: 'HTTP-Service-Monitor'
+      monitor_type: 'HTTP'
+      monitor_interval: 5
+      monitor_time_out: 15
+      monitor_retries: 3
+      monitor_url_method: 'GET'
+      monitor_url: '/'
+      http_pool_name: 'Pool-Web'
+      http_pool_first_member_name: 'AdvLab-Web01'
+      http_pool_first_member_ip: '10.10.11.3'
+      http_pool_first_member_port: 80
+      http_pool_first_member_monitor_port: 80
+      http_pool_second_member_name: 'AdvLab-Web02'
+      http_pool_second_member_ip: '10.10.11.4'
+      http_pool_second_member_port: 80
+      http_pool_second_member_monitor_port: 80
+      http_virtual_server_name: 'VirtualServer-Web'
+      virtual_ip_address: '10.10.11.10'
+      http_virtual_server_port: 80
+
+dfw_sections:
+#    # DFW rules for AdvLab section
+#    - name: 'AdvLab-FW-Rule-Section'
+#      description: 'DFW section for AdvLab'
+#      state: 'present'
+#      section_type: 'L3'
+#      rules:
+#        - name: 'desktop-to-appdb'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'Ipv4Address', value: '192.168.128.111'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'vm', name: 'AdvLab-App01'}
+#            - {type: 'vm', name: 'AdvLab-DB01'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+#    
+#        - name: 'appdb-to-desktop'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'vm', name: 'AdvLab-App01'}
+#            - {type: 'vm', name: 'AdvLab-DB01'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'Ipv4Address', value: '192.168.128.111'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+#    
+#        - name: 'web-to-db'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'vm', name: 'AdvLab-Web01'}
+#            - {type: 'vm', name: 'AdvLab-Web02'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'vm', name: 'AdvLab-DB01'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+#    
+#        - name: 'db-to-web'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'vm', name: 'AdvLab-DB01'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'vm', name: 'AdvLab-Web01'}
+#            - {type: 'vm', name: 'AdvLab-Web02'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+#    
+#        - name: 'web01-to-web02'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'vm', name: 'AdvLab-Web01'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'vm', name: 'AdvLab-Web02'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+#    
+#        - name: 'web02-to-web01'
+#          section: 'AdvLab-FW-Rule-Section'
+#          state: 'present'
+#          disabled: 'false'
+#          src_any: 'false'
+#          src_excluded: 'false'
+#          sources:
+#            - {type: 'vm', name: 'AdvLab-Web02'}
+#          dest_any: 'false'
+#          dest_excluded: 'false'
+#          destinations:
+#            - {type: 'vm', name: 'AdvLab-Web01'}
+#          service_any: 'true'
+#          action: 'block'
+#          logged: 'true'
+#          direction: 'inout'
+#          pkt_type: 'any'
+#          applyto: 'dfw'
+    

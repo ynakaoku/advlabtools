@@ -1,0 +1,23 @@
+# List array of Server/Clinet VMs for your test. Each IP addresses in lists 
+# must be line up corresponding to order of VMs.
+#
+# servers : list of test servers can be iperf server or httpd server. Example: 
+#  servers=("172.16.130.202" "172,16.130.204")
+# testips : list of test ip addresses will be targeted from clients. Example: 
+#  clients=("172.16.130.201" "172.16.130.203")
+# clients : list of test clients can be iperf or ab client. Example: 
+#  clients=("172.16.130.201" "172.16.130.203")
+# mode : test mode. Select "iperf", "iperf3" or "httpd".
+# proto : target protocol of iperf test. Select "tcp" or "udp".
+#
+# Below is example of single server-client pair for testing:
+#
+#              +-----------+            test IP  +-----------+
+# client IP -> | client VM |-------------------->| server VM | <- server IP
+#              +-----------+                     +-----------+
+#
+servers=("172.16.130.202")
+testips=("10.10.10.2"    )
+clients=("172.16.130.201")
+mode="iperf"
+proto="tcp"
