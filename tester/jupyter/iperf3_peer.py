@@ -73,6 +73,7 @@ def get_option(args):
     return options
 
 def init_plt():
+    plt.figure(num=None, figsize=(20, 6), dpi=60, facecolor='w', edgecolor='k')
     plt.rcParams["font.size"] = 15
     plt.rcParams["xtick.labelsize"] = 12
     plt.rcParams["ytick.labelsize"] = 12
@@ -91,7 +92,9 @@ def main():
     cmd = "../scripts/run_iperf3_peer.bash "
     cmd_options = get_option(args)
 
+    print 'Testing, wait {} seconds... '.format(args.time),
     dirname = str(subprocess.check_output( cmd+cmd_options, shell=True, universal_newlines=True )).replace('\n','')
+    print 'done'
 
     json_files = glob.glob(dirname + "/*cl*.json")
     
