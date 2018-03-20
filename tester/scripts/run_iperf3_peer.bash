@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J repo|api]" 1>&2
+    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-s]" 1>&2
     exit 1
 }
 
@@ -13,17 +13,18 @@ echo_switch() {
 }
 
 WORK_DIR=$(pwd)
+REPORT_DIR=$WORK_DIR/reports
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 cd $WORK_DIR
 
 CONFFILE=null
 UDP=false
 JSON=false
-API=false
+SILENT=false
 DATE=$(date +%g%m%d-%H%M%S)
 
 # parsing command option.
-while getopts C:N:i:b:t:uJ:h OPT
+while getopts C:N:i:b:t:uJsh OPT
 do
     case $OPT in
         "C")  CONFFILE=$OPTARG ;;
@@ -32,7 +33,8 @@ do
         "b")  BANDWIDTH=$OPTARG ;;
         "t")  TIME=$OPTARG ;;
         "u")  UDP=true ;;
-        "J")  JSON=true; if [ $OPTARG = "api" ]; then API=true; fi ;;
+        "J")  JSON=true ;;
+        "s")  SILENT=true ;;
         "h")  usage_exit ;;
         \?) usage_exit ;;
     esac
@@ -93,20 +95,20 @@ else
     exit 1
 fi
 
-echo_switch 'Starting iperf servers on VMs...' $API
+echo_switch 'Starting iperf servers on VMs...' $SILENT
 for i in $(seq 0 ${max}) ; do
     echo "iperf3 -s $OPTIONS_S" | ssh -T root@"${servers[i]}" &
 done
 sleep 2
 
-echo_switch 'Executing iperf clients on VMs...' $API
+echo_switch 'Executing iperf clients on VMs...' $SILENT
 for i in $(seq 0 ${max}) ; do
     echo "iperf3 -c ${testips[i]} $OPTIONS_C" | ssh -T root@"${clients[i]}" &
 done
 sleep $(($TIME+10))
 
-echo_switch 'Collecting iperf3 result files...' $API
-dirname=$WORK_DIR/$TESTNAME-iperf3-$DATE
+echo_switch 'Collecting iperf3 result files...' $SILENT
+dirname=$REPORT_DIR/$TESTNAME-iperf3-$DATE
 mkdir $dirname
 if [ -d $dirname ]; then 
     repfile=$dirname/TestReport.txt
@@ -132,12 +134,8 @@ for i in $(seq 0 ${max}) ; do
     echo -e "$TESTNAME-sv-${servers[i]}.$ext : \n  Server: ${servers[i]}\n  Command: iperf -s $OPTIONS_S" >> $repfile
 done
 
-if $API ; then
+if $SILENT ; then
     echo $dirname
-#    for i in $(seq 0 ${max}) ; do
-#        cat $dirname/$TESTNAME-cl-${clients[i]}.$ext
-#        cat $dirname/$TESTNAME-sv-${clients[i]}.$ext
-#    done
 fi
 
-echo_switch 'End.' $API
+echo_switch 'End.' $SILENT
