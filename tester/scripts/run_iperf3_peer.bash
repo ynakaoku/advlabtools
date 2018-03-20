@@ -63,8 +63,8 @@ fi
 if [ $TIME ]; then
 #    OPTIONS_S="$OPTIONS_S -t $(($TIME+5))"
     OPTIONS_C="$OPTIONS_C -t $TIME"
-#else
-#    TIME=10
+else
+    TIME=10
 #    OPTIONS_S="$OPTIONS_S -t $(($TIME+5))"
 fi
 

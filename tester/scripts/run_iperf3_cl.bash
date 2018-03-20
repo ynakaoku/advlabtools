@@ -63,8 +63,8 @@ fi
 
 if [ $TIME ]; then
     OPTIONS="$OPTIONS -t $TIME"
-#else
-#    TIME=10
+else
+    TIME=10
 fi
 
 if [ $BANDWIDTH ]; then
