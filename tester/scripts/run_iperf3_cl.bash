@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J]" 1>&2
+    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-s]" 1>&2
     exit 1
 }
 
