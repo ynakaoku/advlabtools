@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-s]" 1>&2
+    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-M tcp segment size] [-P streams num] [-s]" 1>&2
     exit 1
 }
 
@@ -24,7 +24,7 @@ SILENT=false
 DATE=$(date +%g%m%d-%H%M%S)
 
 # parsing command option.
-while getopts C:N:i:b:t:uJsh OPT
+while getopts C:N:i:b:t:uJM:P:sh OPT
 do
     case $OPT in
         "C")  CONFFILE=$OPTARG ;;
@@ -34,6 +34,8 @@ do
         "t")  TIME=$OPTARG ;;
         "u")  UDP=true ;;
         "J")  JSON=true ;;
+        "M")  MSS=$OPTARG ;;
+        "P")  PARALLEL=$OPTARG ;;
         "s")  SILENT=true ;;
         "h")  usage_exit ;;
         \?) usage_exit ;;
@@ -85,6 +87,14 @@ fi
 if $JSON ; then
     OPTIONS_S="$OPTIONS_S -J"
     OPTIONS_C="$OPTIONS_C -J"
+fi
+
+if [ $MSS ]; then
+    OPTIONS_C="$OPTIONS_C -M $MSS"
+fi
+
+if [ $PARALLEL ]; then
+    OPTIONS_C="$OPTIONS_C -P $PARALLEL"
 fi
 
 if [ $TESTNAME ]; then
