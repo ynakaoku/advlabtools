@@ -37,22 +37,22 @@ ssh-keygen -t rsa
 
 for vm in "${servers[@]}" ; do
     echo "copy public key to VM ${vm}..."
-    ssh-copy-id root@"${vm}":
+    scp ~/.ssh/id_rsa.pub root@"${vm}":
 done
 
 for vm in "${clients[@]}" ; do
     echo "copy public key to VM ${vm}..."
-    ssh-copy-id root@"${vm}":
+    scp ~/.ssh/id_rsa.pub root@"${vm}":
 done
 
 # set active the copied public key in all test VMs.
-#
-#for vm in "${servers[@]}" ; do
-#    echo "activating public key on VM ${vm}..."
-#    ssh root@"${vm}" 'bash -s' < $SCRIPT_DIR/optlib/activate_tester_opt.bash
-#done
-#
-#for vm in "${clients[@]}" ; do
-#    echo "activating public key on VM ${vm}..."
-#    ssh root@"${vm}" 'bash -s' < $SCRIPT_DIR/optlib/activate_tester_opt.bash
-#done
+
+for vm in "${servers[@]}" ; do
+    echo "activating public key on VM ${vm}..."
+    ssh root@"${vm}" 'bash -s' < $SCRIPT_DIR/optlib/activate_tester_opt.bash
+done
+
+for vm in "${clients[@]}" ; do
+    echo "activating public key on VM ${vm}..."
+    ssh root@"${vm}" 'bash -s' < $SCRIPT_DIR/optlib/activate_tester_opt.bash
+done

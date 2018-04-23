@@ -1,0 +1,58 @@
+---
+# ansible-playbook NP-change-testvm.yml -i hosts-testvms
+- hosts: 172.16.130.201
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.1.1.11/24 ipv4.routes '10.1.2.0/24 10.1.1.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.202
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.1.2.12/24 ipv4.routes '10.1.1.0/24 10.1.2.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.203
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.20.1.3/24 ipv4.routes '10.20.2.0/24 10.20.1.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.204
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.20.2.4/24 ipv4.routes '10.20.1.0/24 10.20.2.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.205
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.20.1.5/24 ipv4.routes '10.20.2.0/24 10.20.1.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - inventory-NsxLab.yml
+    - NP-config-testvm.yml
+  tasks:
+  - name: VM ports migration
+    vcenter_change_vnic:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      state: "{{ item.state }}"
+      vm_name: "{{ item.name }}"
+      dvs_name: "{{ item.vds }}"
+      network: "{{ item.network }}"
+      validate_certs: False
+    with_list: "{{ vms }}"
+    register: change_vnic
+    tags: change_vnic
+

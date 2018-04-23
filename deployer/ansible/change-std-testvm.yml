@@ -1,0 +1,58 @@
+---
+# ansible-playbook change-std-testvm.yml -i hosts-testvms
+- hosts: 172.16.130.201
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.10.1/24 ipv4.routes '10.10.11.0/24 10.10.10.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.202
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.10.2/24 ipv4.routes '10.10.11.0/24 10.10.10.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.203
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.11.3/24 ipv4.routes '10.10.10.0/24 10.10.11.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.204
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.11.4/24 ipv4.routes '10.10.10.0/24 10.10.11.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.205
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.10.5/24 ipv4.routes '10.10.11.0/24 10.10.10.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.206
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.10.6/24 ipv4.routes '10.10.11.0/24 10.10.10.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.207
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.11.7/24 ipv4.routes '10.10.10.0/24 10.10.11.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+
+- hosts: 172.16.130.208
+  become: True
+  gather_facts: False
+  tasks:
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.11.8/24 ipv4.routes '10.10.10.0/24 10.10.11.254'
+  - shell: sleep 1; ifdown ens160 && ifup ens160
+

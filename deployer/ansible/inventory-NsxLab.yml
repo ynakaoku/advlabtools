@@ -10,7 +10,7 @@ deployVcPassword: 'vmwareNSX1!'
 # this section holds all parameters needed to deploy the NSX Manager OVA like IP address, etc.
 #deployMgmtPortGroup: 'VM Network'
 #deployDataCenterName: 'Datacenter'
-#deployCluster: 'Mgmt_cluster'
+#deployCluster: 'Demo_cluster'
 #deployMgmtDatastoreName: 'tintri02'
 #deployMgmtIpAddress: '172.16.130.12'
 #deployMgmtDefaultGateway: '172.16.130.254'
@@ -51,7 +51,7 @@ nsxmanager_spec:
 # including controller deployment environment details and IP Pools
 nsxControllerPortGroup: 'VM Network'
 nsxControllerDatastore: 'tintri02'
-nsxControllerVcCluster: 'Mgmt_cluster'
+nsxControllerVcCluster: 'Compute2'
 controllerDeployType: 'lab'
 controllerPassword: 'vmwareNSX1!!'
 controllerSyslogServer: '172.16.130.14' 
@@ -95,7 +95,7 @@ targetClusters:
   cluster2:
     clusterName: 'Computer2'
   cluster3:
-    clusterName: 'Mgmt_clister'
+    clusterName: 'Demo_cluster'
 
 # vCenter and Cluster for Edge node deployment
 vcenter: '172.16.130.11'
@@ -103,7 +103,7 @@ vcenter_user: 'administrator@nsxlab.local'
 vcenter_pwd: 'vmwareNSX1!'
 vcenter_dc: 'Datacenter'
 vcenter_datastore: 'tintri02'
-vcenter_edge_cluster: 'Mgmt_cluster'
+vcenter_edge_cluster: 'Compute2'
 vcenter_edge_pg: 'AdvLab-PG-Edge-Transit'
 vcenter_mgmt_pg: 'VM Network'
 vcenter_vds: 'VDS0'
