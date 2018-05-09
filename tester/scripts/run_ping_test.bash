@@ -90,7 +90,7 @@ done
 sleep $(($TIME+5))
 
 echo 'Collecting ping result files...'
-dirname=$REPOPRT_DIR/$TESTNAME-ping-$(date +%g%m%d-%H%M%S)
+dirname=$REPORT_DIR/$TESTNAME-ping-$(date +%g%m%d-%H%M%S)
 mkdir $dirname
 if [ -d $dirname ]; then 
     repfile=$dirname/TestReport.txt

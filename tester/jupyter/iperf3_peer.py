@@ -24,7 +24,7 @@ def get_args():
     """Get command line args from the user.
     """
     parser = argparse.ArgumentParser(
-        description='Standard Arguments for talking to vCenter')
+        description='Standard Arguments for talking to iperf programs')
 
     parser.add_argument('-C', '--configfile',
                         required=True,
