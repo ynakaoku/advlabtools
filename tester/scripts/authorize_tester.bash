@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file]" 1>&2
+    echo "Usage: $0 [-C config_file] [-R]" 1>&2
     exit 1
 }
 
@@ -11,12 +11,14 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 cd $WORK_DIR
 
 CONFFILE=null
+RENEW=false
 
 # parsing command option.
-while getopts C:h OPT
+while getopts C:Rh OPT
 do
     case $OPT in
         "C")  CONFFILE=$OPTARG ;;
+        "R")  RENEW=true ;;
         "h")  usage_exit ;;
         \?) usage_exit ;;
     esac
@@ -31,7 +33,9 @@ else
 fi
 
 # generate secret key and public key of control VM (this machine).
-ssh-keygen -t rsa
+if [ $RENEW ]; then
+    ssh-keygen -t rsa
+fi
 
 # copy generated public key to all test VMs.
 

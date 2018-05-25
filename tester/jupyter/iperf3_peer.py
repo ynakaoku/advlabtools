@@ -67,23 +67,55 @@ def get_args():
                         action='store_true',
                         help='use UDP rather than TCP')
 
+    parser.add_argument('--getserveroutput',
+                        required=False,
+                        action='store_true',
+                        help='get results from server')
+
     args = parser.parse_args()
     return args
 
 def get_option(args):
+    print "[Test parameters per Peers]"
     options = " -C " + args.configfile + " -N " + args.testname + " -J -s "
-    if args.interval:
-        options = options + " -i " + args.interval
-    if args.bandwidth:
-        options = options + " -b " + args.bandwidth
-    if args.time:
-        options = options + " -t " + args.time
-    if args.mss:
-        options = options + " -M " + args.mss
-    if args.parallel:
-        options = options + " -P " + args.parallel
     if args.udp:
         options = options + " -u "
+        print "| Protocol: UDP",
+    else:
+        print "| Protocol: TCP",
+    if args.bandwidth:
+        options = options + " -b " + args.bandwidth
+        print "| Bandwidth(bps): " + args.bandwidth,
+    else:
+        if args.udp:
+          print "| Bandwidth(bps): 1M",
+        else:
+          print "| Unlimitted Bandwidth",
+    if args.mss:
+        options = options + " -M " + args.mss
+        print "| MSS(byte): " + args.mss,
+    else:
+        print "| MSS(byte): 1460",
+    if args.parallel:
+        options = options + " -P " + args.parallel
+        print "| Streams: " + args.parallel,
+    else:
+        print "| Streams: 1",
+    if args.interval:
+        options = options + " -i " + args.interval
+        print "| Interval(s): " + args.interval,
+    else:
+        print "| Interval(s): 1",
+    if args.time:
+        options = options + " -t " + args.time
+        print "| Time(s): " + args.time,
+    else:
+        print "| Time(s): 10",
+    if args.getserveroutput:
+        options = options + " -G "
+        print "| Use Server side data"
+    else:
+        print "| Use Client side data"
 
     return options
 
@@ -115,6 +147,8 @@ def main():
     print 'done'
 
     json_files = glob.glob(dirname + "/*cl*.json")
+    print "[Test Result]"
+    print "| Number of peers: " + str(len(json_files))
 
     x={}
     y={}
@@ -128,10 +162,18 @@ def main():
         f = open(file, 'r')
         perf_dict = json.load(f)
 
-        print "[Avg BW(Gb) ]: " + str(perf_dict["end"]["sum_received"]["bits_per_second"] / 1000000000)
-        print "[Retransmits]: " + str(perf_dict["end"]["sum_sent"]["retransmits"])
-        print "[Sndr CPU%  ]: " + str(perf_dict["end"]["cpu_utilization_percent"]["host_total"])
-        print "[Rcvr CPU%  ]: " + str(perf_dict["end"]["cpu_utilization_percent"]["remote_total"])
+        if args.udp:
+            print "| Avg Bandwidth(Gbps): " + str(perf_dict["end"]["sum"]["bits_per_second"] / 1000000000), 
+            print "| Jitter(ms): " + str(perf_dict["end"]["sum"]["jitter_ms"]), 
+            print "| Lost Packets: " + str(perf_dict["end"]["sum"]["lost_packets"]),
+            print "| Lost %: " + str(perf_dict["end"]["sum"]["lost_percent"])
+            print "| Sender CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["host_total"]), 
+            print "| Receiver CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["remote_total"])
+        else:
+            print "| Avg Bandwidth(Gbps): " + str(perf_dict["end"]["sum_received"]["bits_per_second"] / 1000000000),
+            print "| Retransmits: " + str(perf_dict["end"]["sum_sent"]["retransmits"]) 
+            print "| Sender CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["host_total"]),
+            print "| Receiver CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["remote_total"])
 
         x[i] = np.array(range(len(perf_dict["intervals"])))
         y[i] = np.array([])

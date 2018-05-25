@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-M tcp segment size] [-P streams num] [-s]" 1>&2
+    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-M tcp segment size] [-P streams num] [-G] [-s]" 1>&2
     exit 1
 }
 
@@ -24,7 +24,7 @@ SILENT=false
 DATE=$(date +%g%m%d-%H%M%S)
 
 # parsing command option.
-while getopts C:N:i:b:t:uJM:P:sh OPT
+while getopts C:N:i:b:t:uJM:P:sGh OPT
 do
     case $OPT in
         "C")  CONFFILE=$OPTARG ;;
@@ -37,6 +37,7 @@ do
         "M")  MSS=$OPTARG ;;
         "P")  PARALLEL=$OPTARG ;;
         "s")  SILENT=true ;;
+        "G")  SERVER_OUTPUT=true ;;
         "h")  usage_exit ;;
         \?) usage_exit ;;
     esac
@@ -95,6 +96,10 @@ fi
 
 if [ $PARALLEL ]; then
     OPTIONS_C="$OPTIONS_C -P $PARALLEL"
+fi
+
+if [ $SERVER_OUTPUT ]; then
+    OPTIONS_C="$OPTIONS_C --get-server-output"
 fi
 
 if [ $TESTNAME ]; then

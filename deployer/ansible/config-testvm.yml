@@ -1,0 +1,12 @@
+---
+# Var file for port migration task that will be executed in Ansible Playbook.
+vms:
+    - {name: 'CentOS-Test01', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test02', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test03', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test04', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test05', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test06', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test07', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+    - {name: 'CentOS-Test08', vds: 'VDS0', network: 'NTTE-TEST-VLAN91', state: 'present'}
+

@@ -4,14 +4,14 @@
   become: True
   gather_facts: False
   tasks:
-  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.1.1.11/24 ipv4.routes '10.1.2.0/24 10.1.1.254'
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.1.11/24 ipv4.routes '10.10.2.0/24 10.10.1.254'
   - shell: sleep 1; ifdown ens160 && ifup ens160
 
 - hosts: 172.16.130.202
   become: True
   gather_facts: False
   tasks:
-  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.1.2.12/24 ipv4.routes '10.1.1.0/24 10.1.2.254'
+  - command: nmcli connection modify ens160 ipv4.method manual ipv4.address 10.10.2.12/24 ipv4.routes '10.10.1.0/24 10.10.2.254'
   - shell: sleep 1; ifdown ens160 && ifup ens160
 
 - hosts: 172.16.130.203

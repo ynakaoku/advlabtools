@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - inventory-AdvLab.yml
+    - config-testvm.yml
+# ansible-playbook deploy_testvm.yml --extra-vars="@config-testvm.yml"
+  tasks:
+  - name: VM ports migration
+    vcenter_change_vnic:
+      hostname: "{{ vcenter }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pwd }}"
+      state: "{{ item.state }}"
+      vm_name: "{{ item.name }}"
+      dvs_name: "{{ item.vds }}"
+      network: "{{ item.network }}"
+      validate_certs: False
+    with_list: "{{ vms }}"
+    register: change_vnic
+    tags: change_vnic
