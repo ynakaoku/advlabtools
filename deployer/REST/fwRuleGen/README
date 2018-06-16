@@ -1,0 +1,32 @@
+How to use DFW Rules auto creation scripts 
+ynakaoku@vmware.com
+
+Prerequisitic:
+- Python 2.7
+- curl command
+
+This script creates only dummy sections/rules, so valid rule for test must be created beforehand.
+
+Procedure:
+0. Make work directory and change to. 
+$ mkdir workdir
+$ cd workdir
+
+1. Copy template directory to your own.
+$ cp -Rp template testdir01
+
+2. Move to created directory.
+$ cd testdir01
+
+3. Generate test scripts with specific sections and rules number. If making 4 sections with 10 rules each, execute as below:
+$ ./generate_postscript.py -i test4-10 -s 4 -r 10 -p head
+
+The script above will create POST script to create new DFW sections and rules.
+In similar manner, PUT script for update DFW can be created. 
+Also bash script for Edge FW rule creation is prepared. 
+
+4. Run created bash command for creating sections and rules on NSX.
+$ bash test4-10.bash
+
+5. The created sections can be removed with below command after test
+TBD
