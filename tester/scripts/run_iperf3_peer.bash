@@ -2,7 +2,7 @@
 #
 
 usage_exit() {
-    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-M tcp segment size] [-P streams num] [-G] [-s]" 1>&2
+    echo "Usage: $0 [-C config_file] [-N testname] [-i interval] [-b bandwidth(K|M|G)] [-t time] [-u] [-J] [-M tcp segment size] [-P streams num] [-G] [-E] [-s]" 1>&2
     exit 1
 }
 
@@ -24,7 +24,7 @@ SILENT=false
 DATE=$(date +%g%m%d-%H%M%S)
 
 # parsing command option.
-while getopts C:N:i:b:t:uJM:P:sGh OPT
+while getopts C:N:i:b:t:uJM:P:sGEh OPT
 do
     case $OPT in
         "C")  CONFFILE=$OPTARG ;;
@@ -38,6 +38,7 @@ do
         "P")  PARALLEL=$OPTARG ;;
         "s")  SILENT=true ;;
         "G")  SERVER_OUTPUT=true ;;
+        "E")  ESXTOP=true ;;
         "h")  usage_exit ;;
         \?) usage_exit ;;
     esac
@@ -55,10 +56,13 @@ else
     fi
 fi
 
+esxlen=${#hosts[@]}
+esxmax=$(($esxlen-1))
 len=${#servers[@]}
 max=$(($len-1))
 OPTIONS_S=""
 OPTIONS_C=""
+OPTIONS_ESX=""
 
 if [ $INTERVAL ]; then
     OPTIONS_S="$OPTIONS_S -i $INTERVAL"
@@ -105,9 +109,18 @@ fi
 if [ $TESTNAME ]; then
     OPTIONS_S="$OPTIONS_S > /tmp/$TESTNAME-sv-$DATE"
     OPTIONS_C="$OPTIONS_C > /tmp/$TESTNAME-cl-$DATE"
+    OPTIONS_ESX="$OPTIONS_ESX -c esxtop-null.conf -d 5 > /tmp/$TESTNAME-esxtop-$DATE"
 else
     echo "Test name is not specified, exit..." 1>&2
     exit 1
+fi
+
+if [ $ESXTOP ]; then
+    echo_switch 'Starting ESXTOP on hosts...' $SILENT
+    for i in $(seq 0 ${esxmax}) ; do
+        echo "touch esxtop-null.conf" | ssh root@"${hosts[i]}"
+        echo "esxtop $OPTIONS_ESX" | ssh root@"${hosts[i]}" &
+    done
 fi
 
 echo_switch 'Starting iperf servers on VMs...' $SILENT
@@ -120,7 +133,26 @@ echo_switch 'Executing iperf clients on VMs...' $SILENT
 for i in $(seq 0 ${max}) ; do
     echo "iperf3 -c ${testips[i]} $OPTIONS_C" | ssh -T root@"${clients[i]}" &
 done
-sleep $(($TIME+10))
+
+#sleep $(($TIME+10))
+
+while true
+do
+    echo_switch 'Checking iperf3 status on VMs...' $SILENT
+    sleep 5
+
+    ipfstat=false
+    for i in $(seq 0 ${max}) ; do
+        stat=$(ssh root@"${clients[i]}" 'bash -s' < $SCRIPT_DIR/optlib/iperf3_status_opt.bash)
+        if $stat ; then
+            ipfstat=true
+        fi
+    done
+    if ! $ipfstat ; then
+        break
+    fi
+done
+
 
 echo_switch 'Collecting iperf3 result files...' $SILENT
 dirname=$REPORT_DIR/$TESTNAME-iperf3-$DATE
@@ -136,6 +168,15 @@ else
 fi
 
 $SCRIPT_DIR/stop_servers.bash -C $CONFFILE > /dev/null
+
+if [ $ESXTOP ]; then
+    $SCRIPT_DIR/stop_esxtop.bash -C $CONFFILE > /dev/null
+
+    for i in $(seq 0 ${esxmax}) ; do
+        scp root@"${hosts[i]}":/tmp/$TESTNAME-esxtop-$DATE $dirname/$TESTNAME-esxtop-${hosts[i]}.csv
+        echo -e "$TESTNAME-esxtop-${hosts[i]}.csv : \n  Host: ${hosts[i]}\n  Command: esxtop $OPTIONS_ESX" >> $repfile
+    done
+fi
 
 for i in $(seq 0 ${max}) ; do
     if $JSON ; then

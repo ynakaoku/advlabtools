@@ -9,8 +9,46 @@ import os
 #import commands
 import subprocess
 import json
+import csv
 import argparse
 import glob
+import re
+class rdict(dict):
+    def __getitem__(self, key):
+        try:
+            return super(rdict, self).__getitem__(key)
+        except:
+            try:
+                ret=[]
+                for i in self.keys():
+                    m= re.match("^"+key+"$",i)
+                    if m:ret.append( super(rdict, self).__getitem__(m.group(0)) )
+            except:raise(KeyError(key))
+        return ret
+
+    def __getkey__(self, key):
+        try:
+            return super(rdict, self).__getkey__(key)
+        except:
+            try:
+                ret=[]
+                for i in self.keys():
+                    m= re.match("^"+key+"$",i)
+                    if m:ret.append( i )
+            except:raise(KeyError(key))
+        return ret
+
+    def __getdict__(self, key):
+        try:
+            return super(rdict, self).__getdict__(key)
+        except:
+            try:
+                ret=[]
+                for i in self.keys():
+                    m= re.match("^"+key+"$",i)
+                    if m:ret.append( {i:super(rdict, self).__getitem__(m.group(0))} )
+            except:raise(KeyError(key))
+        return ret
 
 class FixedOrderFormatter(ticker.ScalarFormatter):
     def __init__(self, order_of_mag=0, useOffset=True, useMathText=True):
@@ -70,7 +108,12 @@ def get_args():
     parser.add_argument('--getserveroutput',
                         required=False,
                         action='store_true',
-                        help='get results from server')
+                        help='get iperf3 test results from servers')
+
+    parser.add_argument('--getesxtop',
+                        required=False,
+                        action='store_true',
+                        help='get esxtop measurement results from hosts')
 
     args = parser.parse_args()
     return args
@@ -111,6 +154,9 @@ def get_option(args):
         print "| Time(s): " + args.time,
     else:
         print "| Time(s): 10",
+    if args.getesxtop:
+        options = options + " -E "
+        print "| Capture ESXTOP",
     if args.getserveroutput:
         options = options + " -G "
         print "| Use Server side data"
@@ -119,7 +165,7 @@ def get_option(args):
 
     return options
 
-def init_plt():
+def init_plt_iperf3():
     plt.figure(num=None, figsize=(20, 6), dpi=60, facecolor='w', edgecolor='k')
     plt.rcParams["font.size"] = 15
     plt.rcParams["xtick.labelsize"] = 12
@@ -133,7 +179,30 @@ def init_plt():
     plt.gca().get_xaxis().set_major_locator(ticker.MaxNLocator(integer=True))
     # plot.hold(True)
 
+def init_plt_esxtop():
+    plt.figure(num=None, figsize=(20, 6), dpi=60, facecolor='w', edgecolor='k')
+    plt.rcParams["font.size"] = 15
+    plt.rcParams["xtick.labelsize"] = 12
+    plt.rcParams["ytick.labelsize"] = 12
+    plt.rcParams["legend.fontsize"] = 12
+    plt.grid()
+    plt.axhline(y=0)
+    plt.xlabel("Time(s)")
+    plt.ylabel("Physical CPU(%)")
+    plt.gca().yaxis.set_major_formatter(FixedOrderFormatter(0, useOffset=False))
+    plt.gca().get_xaxis().set_major_locator(ticker.MaxNLocator(integer=True))
+
 color=['r','b','g','y','p','r','b','g','y','p']
+key_util = ".*Physical Cpu\(_Total\)\\\\\% Util Time"
+key_core = ".*Physical Cpu\(_Total\)\\\\\% Core Util Time"
+key_proc = ".*Physical Cpu\(_Total\)\\\\\% Processor Time"
+
+#'\\\\DL360-ESX1\\Physical Cpu(_Total)\\% Util Time': '1.21'
+#'\\\\DL360-ESX1\\Physical Cpu(_Total)\\% Core Util Time': '2.28'
+#'\\\\DL360-ESX1\\Physical Cpu Load\\Cpu Load (15 Minute Avg)': '0.81'
+#'\\\\DL360-ESX1\\Physical Cpu Load\\Cpu Load (5 Minute Avg)': '0.81'
+#'\\\\DL360-ESX1\\Physical Cpu Load\\Cpu Load (1 Minute Avg)': '0.81'
+#'(PDH-CSV 4.0) (UTC)(0)': '05/15/2018 02:13:06'
     
 def main():
     
@@ -150,12 +219,18 @@ def main():
     print "[Test Result]"
     print "| Number of peers: " + str(len(json_files))
 
+    csv_files = glob.glob(dirname + "/*esxtop*.csv")
+    print "[Test Result]"
+    print "| Number of hosts: " + str(len(csv_files))
+    print ""
+
     x={}
     y={}
     t=np.zeros(int(args.time))
     i=0
 
-    init_plt()
+    # process iperf3 JSON files
+    init_plt_iperf3()
     
     for file in json_files:
         print(file)
@@ -188,6 +263,37 @@ def main():
         
     plt.plot(x[0], t, "k", marker="X", markersize=5, linewidth=2)
     plt.show()
+
+    # process esxtop CSV files
+    for file in csv_files:
+        init_plt_esxtop()
+
+        print(file)
+        print("| Red - CPU Total Util | Blue - CPU Total Core Util | Green - CPU Total Proc Time |")
+        with open(file) as cf:
+            reader = csv.DictReader(cf, delimiter=",")
+            perf_dict = []
+            for row in reader:
+                perf_dict.append(row)
+
+        # X-scale must be coordinated as ESXTOP will be executed per 5 secs.
+        x = (np.array(range(len(perf_dict)))+1)*5
+
+        y_util = np.array([])
+        y_core = np.array([])
+        y_proc = np.array([])
+
+        for p in perf_dict:
+            rd = rdict(p)
+            y_util = np.append(y_util, float(rd[key_util][0]))
+            y_core = np.append(y_core, float(rd[key_core][0]))
+            y_proc = np.append(y_proc, float(rd[key_proc][0]))
+
+#        print x, y_util, y_core, y_proc
+        plt.plot(x, y_util, "r", marker="o",markersize=3)
+        plt.plot(x, y_core, "b", marker="o",markersize=3)
+        plt.plot(x, y_proc, "g", marker="o",markersize=3)
+        plt.show()
 
 # Start program
 if __name__ == "__main__":
