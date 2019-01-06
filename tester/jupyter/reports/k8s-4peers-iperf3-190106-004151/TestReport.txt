@@ -1,0 +1,31 @@
+##############################################################################
+Test Report for /Users/ynakaoku/minikube-apps/advlabtools/tester/jupyter/reports/k8s-4peers-iperf3-190106-004151
+##############################################################################
+k8s-4peers-cl-iperf3-dep5-f4d69dc64-gdgtm.json : 
+  Client: iperf3-dep5-f4d69dc64-gdgtm
+  Server: iperf3-dep1-7bb5958b8d-vjg6n
+  Command: iperf -c iperf3-dep1  -t 10 -J
+k8s-4peers-sv-iperf3-dep1-7bb5958b8d-vjg6n.json : 
+  Server: iperf3-dep1-7bb5958b8d-vjg6n
+  Command: iperf -s  -J
+k8s-4peers-cl-iperf3-dep6-6c9d6888dd-5ndcr.json : 
+  Client: iperf3-dep6-6c9d6888dd-5ndcr
+  Server: iperf3-dep2-64b64896fb-msrxt
+  Command: iperf -c iperf3-dep2  -t 10 -J
+k8s-4peers-sv-iperf3-dep2-64b64896fb-msrxt.json : 
+  Server: iperf3-dep2-64b64896fb-msrxt
+  Command: iperf -s  -J
+k8s-4peers-cl-iperf3-dep7-878c5fc8d-gfflp.json : 
+  Client: iperf3-dep7-878c5fc8d-gfflp
+  Server: iperf3-dep3-77548cdbb4-2xcw7
+  Command: iperf -c iperf3-dep3  -t 10 -J
+k8s-4peers-sv-iperf3-dep3-77548cdbb4-2xcw7.json : 
+  Server: iperf3-dep3-77548cdbb4-2xcw7
+  Command: iperf -s  -J
+k8s-4peers-cl-iperf3-dep8-754d7544bd-qfql8.json : 
+  Client: iperf3-dep8-754d7544bd-qfql8
+  Server: iperf3-dep4-6f4686dbcb-lj2g5
+  Command: iperf -c iperf3-dep4  -t 10 -J
+k8s-4peers-sv-iperf3-dep4-6f4686dbcb-lj2g5.json : 
+  Server: iperf3-dep4-6f4686dbcb-lj2g5
+  Command: iperf -s  -J
