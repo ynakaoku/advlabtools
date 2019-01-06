@@ -14,5 +14,10 @@ Tester also includes python scripts that can help to visualize test result with 
 Basically, you need to provide virtual environment and/or kubernetes environment. 
 
 ### For virtual environment
+Target port must be ens160
+Server port must be ens192
+iperf3, abench must be installed to all VMs beforehand. creating golden image for the VM is recommended. 
+In vSphere environment, advlabtools can collect performance data of ESXi servers via ESXTOP command. 
 
 ### For Kubernetes environment
+advlabtools recognizes each PODs with its parameter "spec.hostname". So "spec.hostname" must be define in YAML file as same to service name. For example, if given name for a POD is "iperf3-dep1", "spec.hostname" of the POD and "name" of correlated service must be "iperf3-dep1". 

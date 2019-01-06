@@ -23,3 +23,5 @@ fi
 if ! $resp ; then
     echo "    not running"
 fi
+address=$(kubectl get pod $1 -o=jsonpath='{.spec.hostname}')
+echo "    "[target] $address
