@@ -63,17 +63,17 @@
     register: gather_moids_upl_pg
     tags: moids
 
-  - name: gather moid | default() for ESG uplink portgroup for VDS2
-    vcenter_gather_moids:
-      hostname: "{{ vcenter }}"
-      username: "{{ vcenter_user }}"
-      password: "{{ vcenter_pwd }}"
-      datacenter_name: "{{ vcenter_dc }}"
-      portgroup_name: "AdvLab-noVLAN2"
-      validate_certs: False
-    register: gather_moids_upl_pg2
-    tags: moids
-
+#  - name: gather moid | default() for ESG uplink portgroup for VDS2
+#    vcenter_gather_moids:
+#      hostname: "{{ vcenter }}"
+#      username: "{{ vcenter_user }}"
+#      password: "{{ vcenter_pwd }}"
+#      datacenter_name: "{{ vcenter_dc }}"
+#      portgroup_name: "AdvLab-noVLAN2"
+#      validate_certs: False
+#    register: gather_moids_upl_pg2
+#    tags: moids
+#
   - name: logical switches creation
     nsx_logical_switch:
       nsxmanager_spec: "{{ nsxmanager_spec }}"

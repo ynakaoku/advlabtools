@@ -20,3 +20,5 @@ fi
 if ! $resp ; then
     echo "    not running"
 fi
+address=$(nmcli c show ens160 | grep ipv4.addresses | awk '{print $2 }')
+echo "    "[test address] $address

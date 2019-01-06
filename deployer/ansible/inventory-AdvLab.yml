@@ -2,7 +2,7 @@
 # the following section defines the vCenter / vSphere environment 
 # were the NSX Manager OVA gets deployed. This can be a separate management vCenter,
 # or the same vCenter to which NSX Manager gets registered
-deployVcIPAddress: '172.16.130.11'
+deployVcIPAddress: '172.16.130.241'
 deployVcUser: 'administrator@nsxlab.local'
 deployVcPassword: 'vmwareNSX1!'
 
@@ -33,7 +33,7 @@ deployVcPassword: 'vmwareNSX1!'
 # to which NSX Manager will be registered to. This can be the same as deploy vCenter,
 # or a separate 'payload' vCenter 
 #vcHostname: "vc01.vmware.com"
-vcIpAddress: "172.16.130.11"
+vcIpAddress: "172.16.130.241"
 vcUser: "administrator@nsxlab.local"
 vcPassword: "vmwareNSX1!"
 #vcSsoHostname: "vc01.vmware.com"
@@ -43,7 +43,7 @@ vcSsoPassword: "vmwareNSX1!"
 # NSX Manager credentials and RAML file path
 nsxmanager_spec: 
   raml_file: '/root/ansible/vmware/nsxraml/nsxvapi.raml'
-  host: "172.16.130.12"
+  host: "172.16.130.242"
   user: 'admin'
   password: "vmwareNSX1!"
 
@@ -64,24 +64,22 @@ defaultControllPlaneMode: 'UNICAST_MODE'
 nsxIppools:
   controller:
     name: 'controller-ip-pool'
-    start_ip: '172.16.128.21'
-    end_ip: '172.16.128.23'
+    start_ip: '172.16.130.243'
+    end_ip: '172.16.130.245'
     prefix_length: '24'
-    gateway: '172.16.128.254'
-    dns_server_1: '172.16.128.101'
-    dns_server_2: '172.16.128.102'
+    gateway: '172.16.130.254'
+    dns_server_1: '172.16.100.201'
   vteps:
     name: 'vtep-ip-pool'
-    start_ip: '172.16.129.1'
-    end_ip: '172.16.129.6'
+    start_ip: '192.168.10.4'
+    end_ip: '192.168.10.7'
     prefix_length: '24'
-    gateway: '172.16.129.254'
-    dns_server_1: '172.16.128.101'
-    dns_server_2: '172.16.128.102'
+    gateway: '192.168.10.254'
+    dns_server_1: '172.16.100.201'
 
 # ID Pool for VXLAN
-segmentIdPoolStart: '5000'
-segmentIdPoolEnd: '5999'
+segmentIdPoolStart: '15000'
+segmentIdPoolEnd: '15999'
 mcastEnabled: 'False'
 #mcastAddrStart: '239.0.0.0'
 #mcastAddrEnd: '239.255.255.255'
@@ -98,7 +96,7 @@ targetClusters:
     clusterName: 'Demo_cluster'
 
 # vCenter and Cluster for Edge node deployment
-vcenter: '172.16.130.11'
+vcenter: '172.16.130.241'
 vcenter_user: 'administrator@nsxlab.local'
 vcenter_pwd: 'vmwareNSX1!'
 vcenter_dc: 'Datacenter'

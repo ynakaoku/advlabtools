@@ -4,6 +4,10 @@ vms:
     - {name: 'CentOS-Test02', vds: 'VDS2', network: 'AdvLab-Test0', state: 'present'}
     - {name: 'CentOS-Test03', vds: 'VDS0', network: 'AdvLab-Test1', state: 'present'}
     - {name: 'CentOS-Test04', vds: 'VDS2', network: 'AdvLab-Test1', state: 'present'}
+    - {name: 'CentOS-Test05', vds: 'VDS0', network: 'AdvLab-Test0', state: 'present'}
+    - {name: 'CentOS-Test06', vds: 'VDS2', network: 'AdvLab-Test0', state: 'present'}
+    - {name: 'CentOS-Test07', vds: 'VDS0', network: 'AdvLab-Test1', state: 'present'}
+    - {name: 'CentOS-Test08', vds: 'VDS2', network: 'AdvLab-Test1', state: 'present'}
 
 logical_switches:
     - {name: 'AdvLab-Transit', description: 'Transit logical-switch for AdvLab', state: 'present'}

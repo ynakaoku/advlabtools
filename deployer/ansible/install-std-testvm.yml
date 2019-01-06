@@ -1,0 +1,19 @@
+---
+# Ansible Playbook for install new package via yum. 
+# commad: ansible-playbook install-std-testvm.yml -i hosts-testvms
+- hosts: all_hosts  # All hosts defined in given hosts file 
+  become: True
+  gather_facts: False
+  tasks:
+  - name: install the latest version of yum package
+    yum:
+      name: vsftpd
+      state: latest
+  - name: install the latest version of yum package
+    yum:
+      name: ftp
+      state: latest
+  - name: Start service if not running
+    service:
+      name: vsftpd
+      state: started
