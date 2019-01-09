@@ -25,8 +25,8 @@ Please select your favorite form factor for advlabtools controller machine. In c
 At first, please ensure that these packages are installed in your controller machine: 
 - python 2.7
 - python modules
-  - python-devel
   - pip
+  - python-devel
   - gcc
   - tk-devel
   - numpy
@@ -35,6 +35,8 @@ At first, please ensure that these packages are installed in your controller mac
   - json
   - PyYAML
   - jupyter
+  - jupyter-core
+  - jupyter-notebook
   - kubernetes
 
 #### advlabtools Installation
