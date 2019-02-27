@@ -222,8 +222,8 @@ for i in $(seq 0 ${max}) ; do
     else
         scp root@"${servers[i]}":/tmp/$TESTNAME-sv-{servers[i]}-$DATE $dirname/$TESTNAME-sv-${servers[i]}.$ext > /dev/null
     fi
-    echo -e "$TESTNAME-cl-${clients[i]}.$ext : \n  Client: ${clients[i]}\n  Server: ${servers[i]}\n  Command: iperf -c ${targets[i]} $OPTIONS_C" >> $repfile
-    echo -e "$TESTNAME-sv-${servers[i]}.$ext : \n  Server: ${servers[i]}\n  Command: iperf -s $OPTIONS_S" >> $repfile
+    echo -e "$TESTNAME-cl-${clients[i]}.$ext : \n  Client: ${clients[i]}\n  Server: ${servers[i]}\n  Command: iperf3 -c ${targets[i]} $OPTIONS_C" >> $repfile
+    echo -e "$TESTNAME-sv-${servers[i]}.$ext : \n  Server: ${servers[i]}\n  Command: iperf3 -s $OPTIONS_S" >> $repfile
 done
 
 if $SILENT ; then

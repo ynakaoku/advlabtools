@@ -155,8 +155,15 @@ $ authorize_esxi.bash -C all-targets-config
 ```
 
 ### Setup Kubernetes Deployments
-#### Providing Kubernetes YAML file 
-If you would like to perform test aganst Kubernetes containers, please write YAML definition for Deployments and Services. Below is typical definition for single pair of Deployment and Service optimized for use with *advlabtools*.   
+#### Add specific label to Kubernetes Nodes
+If you would like to perform test against Kubernetes containers, you can add label to Kubernetes Nodes so that container pods can be instantiated on top of specific Nodes.  
+Below is example of adding label to `minikube` node:
+
+```
+$ kubectl label nodes minikube id=node1
+```
+#### Providing Kubernetes Manifest file 
+If you would like to perform test against Kubernetes containers, please write Manifest YAML definition for Deployments and Services. Below is typical definition for single pair of Deployment and Service optimized for use with *advlabtools*.   
 Examples of YAML definition are in `deployer/kubernetes` directory.
 ```
 apiVersion: apps/v1
@@ -199,6 +206,8 @@ spec:
         - containerPort: 5201
           name: iperf3-dep1
       terminationGracePeriodSeconds: 0
+      nodeSelector:
+        id: node1
 
 ---
 
@@ -216,7 +225,7 @@ spec:
 
 ---
 ```
-Key points of YAML definition are below:
+Key points of Manifest YAML definition are below:
 - `metadata.name`: unique name for the Deployment or the Services.  
 - `metadata.labels`: label `app=iperf3` is used to identify type of Deployments and Services.  
 - `spec.replicas`: number of Deployment instance PODs. This must be `1` always because *advlabtools* treats the Deployment as single endpoint for test.  
@@ -229,12 +238,12 @@ Key points of YAML definition are below:
 #### Start and Stop Deployments
 To start the Deployments and Services:
 ```
-$ kubectl create -f <YAML file>
+$ kubectl create -f <Manifest file>
 ```
 This command just create the Deployments/PODs but test tools are not.  
 To stop the Deployments and Services:
 ```
-$ kubectl delete -f <YAML file>
+$ kubectl delete -f <Manifest file>
 ```
 
 ### Setup Jupyter Notebook  
