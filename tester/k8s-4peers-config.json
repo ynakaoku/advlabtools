@@ -1,0 +1,58 @@
+{
+	"testName": "K8s-test01",
+	"mode": "iperf3",
+	"interval": 1,
+	"bandwidth": "1G", 
+	"mss": 1460, 
+	"parallel": 1, 
+	"time": 10, 
+	"proto": "tcp",
+	"useServerOutput": false, 
+	"useEsxtopOutput": false, 
+	"flows": [
+		{
+			"server": {
+				"name": "iperf3-dep1",
+				"type": "kubernetes"
+			},
+			"client": {
+				"name": "iperf3-dep5",
+				"type": "kubernetes"
+			},
+			"target": "iperf3-dep1"
+		},
+		{
+			"server": {
+				"name": "iperf3-dep2",
+				"type": "kubernetes"
+			},
+			"client": {
+				"name": "iperf3-dep6",
+				"type": "kubernetes"
+			},
+			"target": "iperf3-dep2"
+		},
+		{
+			"server": {
+				"name": "iperf3-dep3",
+				"type": "kubernetes"
+			},
+			"client": {
+				"name": "iperf3-dep7",
+				"type": "kubernetes"
+			},
+			"target": "iperf3-dep3"
+		},
+		{
+			"server": {
+				"name": "iperf3-dep4",
+				"type": "kubernetes"
+			},
+			"client": {
+				"name": "iperf3-dep8",
+				"type": "kubernetes"
+			},
+			"target": "iperf3-dep4"
+		}
+	]
+}
