@@ -1,0 +1,271 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf3-dep11
+  labels:
+    app: iperf3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf3
+  template:
+    metadata:
+      labels:
+        app: iperf3
+    spec:
+      hostname: iperf3-dep11
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                - master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+      - name: iperf3
+        image: networkstatic/iperf3
+        command: ['/bin/sh', '-c', 'sleep infinity']
+        # To benchmark manually: kubectl exec iperf3-clients-jlfxq -- /bin/sh -c 'iperf3 -c iperf3-server'
+        ports:
+        - containerPort: 5201
+          protocol: TCP
+          name: iperf3-dep11-t
+        - containerPort: 5201
+          protocol: UDP
+          name: iperf3-dep11-u
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        id: node1
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3-dep11
+spec:
+  selector:
+    app: iperf3
+  ports:
+  - name: iperf-tcp
+    protocol: TCP
+    port: 5201
+    targetPort: iperf3-dep11-t
+  - name: iperf-udp
+    protocol: UDP
+    port: 5201
+    targetPort: iperf3-dep11-u
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf3-dep12
+  labels:
+    app: iperf3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf3
+  template:
+    metadata:
+      labels:
+        app: iperf3
+    spec:
+      hostname: iperf3-dep12
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                - master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+      - name: iperf3
+        image: networkstatic/iperf3
+        command: ['/bin/sh', '-c', 'sleep infinity']
+        # To benchmark manually: kubectl exec iperf3-clients-jlfxq -- /bin/sh -c 'iperf3 -c iperf3-server'
+        ports:
+        - containerPort: 5201
+          protocol: TCP
+          name: iperf3-dep12-t
+        - containerPort: 5201
+          protocol: UDP
+          name: iperf3-dep12-u
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        id: node2
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3-dep12
+spec:
+  selector:
+    app: iperf3
+  ports:
+  - name: iperf-tcp
+    protocol: TCP
+    port: 5201
+    targetPort: iperf3-dep12-t
+  - name: iperf-udp
+    protocol: UDP
+    port: 5201
+    targetPort: iperf3-dep12-u
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf3-dep13
+  labels:
+    app: iperf3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf3
+  template:
+    metadata:
+      labels:
+        app: iperf3
+    spec:
+      hostname: iperf3-dep13
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                - master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+      - name: iperf3
+        image: networkstatic/iperf3
+        command: ['/bin/sh', '-c', 'sleep infinity']
+        # To benchmark manually: kubectl exec iperf3-clients-jlfxq -- /bin/sh -c 'iperf3 -c iperf3-server'
+        ports:
+        - containerPort: 5201
+          protocol: TCP
+          name: iperf3-dep13-t
+        - containerPort: 5201
+          protocol: UDP
+          name: iperf3-dep13-u
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        id: node3
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3-dep13
+spec:
+  selector:
+    app: iperf3
+  ports:
+  - name: iperf-tcp
+    protocol: TCP
+    port: 5201
+    targetPort: iperf3-dep13-t
+  - name: iperf-udp
+    protocol: UDP
+    port: 5201
+    targetPort: iperf3-dep13-u
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf3-dep14
+  labels:
+    app: iperf3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf3
+  template:
+    metadata:
+      labels:
+        app: iperf3
+    spec:
+      hostname: iperf3-dep14
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                - master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+      - name: iperf3
+        image: networkstatic/iperf3
+        command: ['/bin/sh', '-c', 'sleep infinity']
+        # To benchmark manually: kubectl exec iperf3-clients-jlfxq -- /bin/sh -c 'iperf3 -c iperf3-server'
+        ports:
+        - containerPort: 5201
+          protocol: TCP
+          name: iperf3-dep14-t
+        - containerPort: 5201
+          protocol: UDP
+          name: iperf3-dep14-u
+      terminationGracePeriodSeconds: 0
+      nodeSelector:
+        id: node4
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: iperf3-dep14
+spec:
+  selector:
+    app: iperf3
+  ports:
+  - name: iperf-tcp
+    protocol: TCP
+    port: 5201
+    targetPort: iperf3-dep14-t
+  - name: iperf-udp
+    protocol: UDP
+    port: 5201
+    targetPort: iperf3-dep14-u
+    
+---

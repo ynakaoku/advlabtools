@@ -11,7 +11,7 @@ import os
 #import commands
 import subprocess
 import json
-#import argparse
+import argparse
 import glob
 import csv, re
 import yaml
@@ -20,80 +20,7 @@ from kubernetes import config
 from kubernetes.client.apis import core_v1_api
 # from kubernetes.client.rest import ApiException
 # from kubernetes.stream import stream
-from flask import Flask, jsonify, request, Markup, abort, make_response
 
-### REST API definitions
-api = Flask(__name__)
-
-@api.route('/')
-def index():
-    html = '''
-    Start Page
-    '''
-    return Markup(html)
-
-@api.route('/iperf3')
-def iperf3_input():
-    html = '''
-    <form action="/iperf3/RunTest">
-        <p><label>iperf3 test: </label></p>
-        Test Name: <input type="text" name="TestName"></p>
-        Config File: <input type="text" name="ConfigFile"></p>
-        Interval: <input type="text" name="Interval" value="1"></p>
-        Bandwidth: <input type="text" name="Bandwidth" value="1G"></p>
-        MSS: <input type="text" name="MSS" value="1460"></p>
-        Parallel: <input type="text" name="Parallel" value="1"></p>
-        Time: <input type="text" name="Time" value="10"></p>
-        Protocol is UDP? : <input type="checkbox" name="UDP?"></p>
-        Use Server Output? : <input type="checkbox" name="Get Server Output?"></p>
-        Use ESXTOP Output? : <input type="checkbox" name="Get ESXTOP Output?"></p>
-        <button type="submit" formmethod="post">POST</button></p>
-    </form>
-    '''
-    return Markup(html)
-
-@api.route('/iperf3/RunTest', methods=['POST'])
-def iperf3RunTest():
-    content = request.get_json()
-#    print (content)
-    try:
-#        return Markup(content)
-        return iperf3_run_test(content)
-    except Exception as e:
-        return str(e)
-
-@api.route('/iperf3/GetTestDetails', methods=['GET'])
-def iperf3TestDetails():
-    testid = request.args.get('testid')
-    try:
-        return iperf3_get_test_details(testid)
-    except Exception as e:
-        return str(e)
-
-@api.route('/iperf3/GetTestHistory', methods=['GET'])
-def iperf3TestHistory():
-    try:
-        return iperf3_get_test_history()
-    except Exception as e:
-        return str(e)
-
-@api.route('/sayHello', methods=['GET'])
-def say_hello():
-
-    result = {
-        "result":True,
-        "data": "Hello, world!"
-        }
-
-    return make_response(jsonify(result))
-    # if you do not want to use Unicode: 
-    # return make_response(json.dumps(result, ensure_ascii=False))
-
-@api.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-
-# RDICT definitions for ESXTOP processing
 class rdict(dict):
     def __getitem__(self, key):
         try:
@@ -131,7 +58,6 @@ class rdict(dict):
             except:raise(KeyError(key))
         return ret
 
-# Matplotlib Formatter definitions
 class FixedOrderFormatter(ticker.ScalarFormatter):
     def __init__(self, order_of_mag=0, useOffset=True, useMathText=True):
         self._order_of_mag = order_of_mag
@@ -140,55 +66,113 @@ class FixedOrderFormatter(ticker.ScalarFormatter):
     def _set_orderOfMagnitude(self, range):
         self.orderOfMagnitude = self._order_of_mag
 
-# get options for shel script
-def get_option(content):
+def get_args():
+    """Get command line args from the user.
+    """
+    parser = argparse.ArgumentParser(
+        description='Standard Arguments for iperf3 testing')
+
+    parser.add_argument('-C', '--configfile',
+                        required=True,
+                        action='store',
+                        help='config file for iperf3 test')
+
+    parser.add_argument('-N', '--testname',
+                        required=True,
+                        action='store',
+                        help='name for the iperf3 test, not to be unique')
+
+    parser.add_argument('-i', '--interval',
+                        required=False,
+                        action='store',
+                        help='second for periodic bandwidth report, defaulty no report')
+
+    parser.add_argument('-b', '--bandwidth',
+                        required=False,
+                        action='store',
+                        help='target bandwidth in bps, default 1 Mbit/sec for UDP, unlimited for TCP')
+
+    parser.add_argument('-M', '--mss',
+                        required=False,
+                        action='store',
+                        help='TCP maximum segmnet size (MTU - 40), default 1460 bytes')
+
+    parser.add_argument('-P', '--parallel',
+                        required=False,
+                        action='store',
+                        help='number of parallel client streams to run, default 1 stream')
+
+    parser.add_argument('-t', '--time',
+                        required=False,
+                        default='10',
+                        action='store',
+                        help='time in seconds to transmit for, default 10 secs')
+
+    parser.add_argument('-u', '--udp',
+                        required=False,
+                        action='store_true',
+                        help='use UDP rather than TCP')
+
+    parser.add_argument('--getserveroutput',
+                        required=False,
+                        action='store_true',
+                        help='get iperf3 test results from servers')
+
+    parser.add_argument('--getesxtop',
+                        required=False,
+                        action='store_true',
+                        help='get esxtop measurement results from hosts')
+
+    args = parser.parse_args()
+    return args
+
+def get_option(args):
     print("[Test parameters per Peers]")
-    options = " -C /tmp/advlabtools-scenario-temp -N " + content['testName'] + " -J -s "
-    if content['proto'] is 'udp':
+    options = " -C /tmp/advlabtools-scenario-temp -N " + args.testname + " -J -s "
+    if args.udp:
         options = options + " -u "
         print("| Protocol: UDP", end=" ")
     else:
         print("| Protocol: TCP", end=" ")
-    if content['bandwidth']:
-        options = options + " -b " + content['bandwidth']
-        print("| Bandwidth(bps): " + content['bandwidth'], end=" ")
+    if args.bandwidth:
+        options = options + " -b " + args.bandwidth
+        print("| Bandwidth(bps): " + args.bandwidth, end=" ")
     else:
-        if content['proto'] is 'udp':
+        if args.udp:
           print("| Bandwidth(bps): 1M", end=" ")
         else:
           print("| Unlimitted Bandwidth", end=" ")
-    if content['mss']:
-        options = options + " -M " + str(content['mss'])
-        print("| MSS(byte): " + str(content['mss']), end=" ")
+    if args.mss:
+        options = options + " -M " + args.mss
+        print("| MSS(byte): " + args.mss, end=" ")
     else:
         print("| MSS(byte): 1460", end=" ")
-    if content['parallel']:
-        options = options + " -P " + str(content['parallel'])
-        print("| Streams: " + str(content['parallel']), end=" ")
+    if args.parallel:
+        options = options + " -P " + args.parallel
+        print("| Streams: " + args.parallel, end=" ")
     else:
         print("| Streams: 1", end=" ")
-    if content['interval']:
-        options = options + " -i " + str(content['interval'])
-        print("| Interval(s): " + str(content['interval']), end=" ")
+    if args.interval:
+        options = options + " -i " + args.interval
+        print("| Interval(s): " + args.interval, end=" ")
     else:
         print("| Interval(s): 1", end=" ")
-    if content['time']:
-        options = options + " -t " + str(content['time'])
-        print("| Time(s): " + str(content['time']), end=" ")
+    if args.time:
+        options = options + " -t " + args.time
+        print("| Time(s): " + args.time, end=" ")
     else:
         print("| Time(s): 10", end=" ")
-    if content['useEsxtopOutput']:
+    if args.getesxtop:
         options = options + " -E "
         print("| Capture ESXTOP", end=" ")
-    if content['useServerOutput']:
+    if args.getserveroutput:
         options = options + " -G "
-        print("| Use Server side data", end=" ")
+        print("| Use Server side data")
     else:
         print("| Use Client side data")
 
     return options
 
-# Matplotlib plot initialization
 def init_plt():
     plt.figure(num=None, figsize=(20, 6), dpi=60, facecolor='w', edgecolor='k')
     plt.rcParams["font.size"] = 15
@@ -234,25 +218,16 @@ color=['r','b','g','y','p','r','b','g','y','p']
 key_util = ".*Physical Cpu\(_Total\)\\\\\% Util Time"
 key_core = ".*Physical Cpu\(_Total\)\\\\\% Core Util Time"
 key_proc = ".*Physical Cpu\(_Total\)\\\\\% Processor Time"
+    
+def main():
+    
+    args = get_args()
 
-# get iperf3 test history
-def iperf3_get_test_history():
-#    list_dict = { os.listdir(path='reports') }
-    list_dict = os.listdir(path='reports')
-    list_json = json.dumps(list_dict)
-    print(list_json)
-    return make_response(list_json)
-    
-# get details of an iperf3 test specified with testid
-def iperf3_get_test_details(testid):
-    f = open('reports/' + testid + '/TestDetails.json', 'r')
-    detail = json.load(f)
-#    print(detail)
-    return make_response(jsonify(detail))
-    
-# run iperf3 test workflow
-def iperf3_run_test(content):
-    
+    # open config file and load test scenario
+    f = open("../%s" % args.configfile, "r")
+    data = yaml.load(f, Loader=yaml.FullLoader)
+    f.close()
+
     config.load_kube_config() 
 #    c = Configuration() 
 #    c.assert_hostname = False
@@ -275,10 +250,10 @@ def iperf3_run_test(content):
     ctypes=[]
     snamespaces=[]
     cnamespaces=[]
-    mode=content['mode']
-    proto=content['proto']
+    mode=data['mode']
+    proto=data['proto']
 
-    for i in content['flows']:
+    for i in data['flows']:
         stypes.append(i['server']['type'])
         ctypes.append(i['client']['type'])
         targets.append(i['target'])
@@ -287,10 +262,6 @@ def iperf3_run_test(content):
                 if j.spec.hostname == i['server']['name']:
                     servers.append(j.metadata.name)
                     snamespaces.append(j.metadata.namespace)
-            if servers == [] or snamespaces == []: 
-                print("Pod %s can not find" % i['server']['name'])
-                res = { "result":False, "pod":i['server']['name'] }
-                return make_response(jsonify(res))
         else:
             servers.append(i['server']['name'])
             snamespaces.append("")
@@ -300,15 +271,10 @@ def iperf3_run_test(content):
                 if j.spec.hostname == i['client']['name']:
                     clients.append(j.metadata.name)
                     cnamespaces.append(j.metadata.namespace)
-            if clients == [] or cnamespaces == []: 
-                print("Pod %s can not find" % i['client']['name'])
-                res = { "result":False, "pod":i['client']['name'] }
-                return make_response(jsonify(res))
-                    
         else:
-            clients.append(i['client']['name'])
+            clients.append(i['server']['name'])
             cnamespaces.append("")
-
+#        print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
     f = open("/tmp/advlabtools-scenario-temp", "w")
     test_str = ""
     servers_str = ""
@@ -333,7 +299,7 @@ def iperf3_run_test(content):
     for s in cnamespaces: cnamespaces_str += '"' + s + '" '
     test_str += "cnamespaces=(" + cnamespaces_str + ")\n"
     test_str += 'mode="' + mode + '"\n' + 'proto="' + proto + '"'
-#    print(test_str)
+#    print test_str
     f.write(test_str)
     f.close()
 
@@ -349,74 +315,45 @@ def iperf3_run_test(content):
 #            break
 
     cmd = "../scripts/k8s_iperf3_peer.bash "
-    cmd_options = get_option(content)
+    cmd_options = get_option(args)
 
-    print('Testing, wait {} seconds... '.format(content['time']), end=" ")
+    print('Testing, wait {} seconds... '.format(args.time), end=" ")
     dirname = str(subprocess.check_output( cmd+cmd_options, shell=True, universal_newlines=True )).replace('\n','')
-    testid = dirname.split("/")[-1]
     print('done')
-
-    content['result'] = {}
-    content['result']['directory'] = dirname
-    content['result']['id'] = testid
 
     json_files = glob.glob(dirname + "/*cl*.json")
     print("[Test Result]")
     print("| Number of peers: " + str(len(json_files)))
-    content['result']['peers'] = len(json_files) 
 
     csv_files = glob.glob(dirname + "/*esxtop*.csv")
     print("[Test Result]")
     print("| Number of hosts: " + str(len(csv_files)))
     print("")
-    content['result']['hosts'] = len(csv_files) 
 
     x={}
     y={}
-    t=np.zeros(int(content['time']))
+    t=np.zeros(int(args.time))
     i=0
 
     init_plt()
     
     for file in json_files:
         print(file)
-        flowid = file.split("/")[-1]
-        content['result'][flowid] = {}
-
         f = open(file, 'r')
         perf_dict = json.load(f)
 
-        if proto is 'udp':
+        if args.udp:
             print("| Avg Bandwidth(Gbps): " + str(perf_dict["end"]["sum"]["bits_per_second"] / 1000000000), end=" ")
-            content['result'][flowid]['bits_per_second'] = perf_dict["end"]["sum"]["bits_per_second"]
-
             print("| Jitter(ms): " + str(perf_dict["end"]["sum"]["jitter_ms"]), end=" ")
-            content['result'][flowid]['jitter'] = perf_dict["end"]["sum"]["jitter_ms"]
-
             print("| Lost Packets: " + str(perf_dict["end"]["sum"]["lost_packets"]), end=" ")
-            content['result'][flowid]['lost_packets'] = perf_dict["end"]["sum"]["lost_packets"]
-
             print("| Lost %: " + str(perf_dict["end"]["sum"]["lost_percent"]))
-            content['result'][flowid]['lost_percent'] = perf_dict["end"]["sum"]["lost_percent"]
-
             print("| Sender CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["host_total"]), end=" ")
-            content['result'][flowid]['local_cpu_utilization'] = perf_dict["end"]["cpu_utilization_percent"]["host_total"]
-
             print("| Receiver CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["remote_total"]))
-            content['result'][flowid]['remote_cpu_utilization'] = perf_dict["end"]["cpu_utilization_percent"]["remote_total"]
-
         else:
             print("| Avg Bandwidth(Gbps): " + str(perf_dict["end"]["sum_received"]["bits_per_second"] / 1000000000), end=" ")
-            content['result'][flowid]['bits_per_second'] = perf_dict["end"]["sum_received"]["bits_per_second"]
-
-            print("| Retransmits: " + str(perf_dict["end"]["sum_sent"]["retransmits"]))
-            content['result'][flowid]['retransmits'] = perf_dict["end"]["sum_sent"]["retransmits"]
-
+            print("| Retransmits: " + str(perf_dict["end"]["sum_sent"]["retransmits"])) 
             print("| Sender CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["host_total"]), end=" ")
-            content['result'][flowid]['local_cpu_utilization'] = perf_dict["end"]["cpu_utilization_percent"]["host_total"]
-
             print("| Receiver CPU%: " + str(perf_dict["end"]["cpu_utilization_percent"]["remote_total"]))
-            content['result'][flowid]['remote_cpu_utilization'] = perf_dict["end"]["cpu_utilization_percent"]["remote_total"]
 
         x[i] = np.array(range(len(perf_dict["intervals"])))
         y[i] = np.array([])
@@ -430,8 +367,7 @@ def iperf3_run_test(content):
         i=i+1
         
     plt.plot(x[0], t, "k", marker="X", markersize=5, linewidth=2)
-#    plt.show()
-    plt.savefig(dirname + '/throughput.png')
+    plt.show()
 
     # process esxtop CSV files
     for file in csv_files:
@@ -462,16 +398,8 @@ def iperf3_run_test(content):
         plt.plot(x, y_util, "r", marker="o",markersize=3)
         plt.plot(x, y_core, "b", marker="o",markersize=3)
         plt.plot(x, y_proc, "g", marker="o",markersize=3)
-#        plt.show()
-        plt.savefig(dirname + '/serverload.png')
-
-    f = open(dirname + '/TestDetails.json', 'w')
-    json.dump(content, f)
-    f.close()
-
-    res = { "result":True, "id":content['result']['id'] }
-    return make_response(jsonify(res))
+        plt.show()
 
 # Start program
 if __name__ == "__main__":
-    api.run(host='0.0.0.0', port=8000)
+    main()

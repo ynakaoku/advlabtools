@@ -1,0 +1,287 @@
+{
+	"start":	{
+		"connected":	[{
+				"socket":	5,
+				"local_host":	"172.19.36.2",
+				"local_port":	5201,
+				"remote_host":	"172.19.37.2",
+				"remote_port":	42774
+			}],
+		"version":	"iperf 3.0.7",
+		"system_info":	"Linux iperf3-dep1 4.15.0-43-generic #46~16.04.1-Ubuntu SMP Fri Dec 7 13:31:08 UTC 2018 x86_64 GNU/Linux\n",
+		"timestamp":	{
+			"time":	"Sun, 31 Mar 2019 14:01:31 GMT",
+			"timesecs":	1554040891
+		},
+		"accepted_connection":	{
+			"host":	"172.19.37.2",
+			"port":	42772
+		},
+		"cookie":	"iperf3-dep3.1554040701.490902.2fcb38",
+		"tcp_mss":	1460,
+		"test_start":	{
+			"protocol":	"TCP",
+			"num_streams":	1,
+			"blksize":	131072,
+			"omit":	0,
+			"duration":	10,
+			"bytes":	0,
+			"blocks":	0,
+			"reverse":	0
+		}
+	},
+	"intervals":	[{
+			"streams":	[{
+					"socket":	5,
+					"start":	0,
+					"end":	1.00012,
+					"seconds":	1.00012,
+					"bytes":	117587288,
+					"bits_per_second":	9.40587e+08,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	0,
+				"end":	1.00012,
+				"seconds":	1.00012,
+				"bytes":	117587288,
+				"bits_per_second":	9.40587e+08,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	1.00012,
+					"end":	2.00007,
+					"seconds":	0.999955,
+					"bytes":	125435904,
+					"bits_per_second":	1.00353e+09,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	1.00012,
+				"end":	2.00007,
+				"seconds":	0.999955,
+				"bytes":	125435904,
+				"bits_per_second":	1.00353e+09,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	2.00007,
+					"end":	3.00011,
+					"seconds":	1.00004,
+					"bytes":	124256256,
+					"bits_per_second":	9.94012e+08,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	2.00007,
+				"end":	3.00011,
+				"seconds":	1.00004,
+				"bytes":	124256256,
+				"bits_per_second":	9.94012e+08,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	3.00011,
+					"end":	4.00011,
+					"seconds":	1,
+					"bytes":	125042688,
+					"bits_per_second":	1.00034e+09,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	3.00011,
+				"end":	4.00011,
+				"seconds":	1,
+				"bytes":	125042688,
+				"bits_per_second":	1.00034e+09,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	4.00011,
+					"end":	5.00012,
+					"seconds":	1.00001,
+					"bytes":	125173760,
+					"bits_per_second":	1.00138e+09,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	4.00011,
+				"end":	5.00012,
+				"seconds":	1.00001,
+				"bytes":	125173760,
+				"bits_per_second":	1.00138e+09,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	5.00012,
+					"end":	6.0002,
+					"seconds":	1.00007,
+					"bytes":	124387328,
+					"bits_per_second":	9.95026e+08,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	5.00012,
+				"end":	6.0002,
+				"seconds":	1.00007,
+				"bytes":	124387328,
+				"bits_per_second":	9.95026e+08,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	6.0002,
+					"end":	7.00009,
+					"seconds":	0.999894,
+					"bytes":	124911616,
+					"bits_per_second":	9.99399e+08,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	6.0002,
+				"end":	7.00009,
+				"seconds":	0.999894,
+				"bytes":	124911616,
+				"bits_per_second":	9.99399e+08,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	7.00009,
+					"end":	8.00012,
+					"seconds":	1.00003,
+					"bytes":	125698048,
+					"bits_per_second":	1.00555e+09,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	7.00009,
+				"end":	8.00012,
+				"seconds":	1.00003,
+				"bytes":	125698048,
+				"bits_per_second":	1.00555e+09,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	8.00012,
+					"end":	9.00016,
+					"seconds":	1.00004,
+					"bytes":	124911616,
+					"bits_per_second":	9.99252e+08,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	8.00012,
+				"end":	9.00016,
+				"seconds":	1.00004,
+				"bytes":	124911616,
+				"bits_per_second":	9.99252e+08,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	9.00016,
+					"end":	10.0002,
+					"seconds":	1.00007,
+					"bytes":	125042688,
+					"bits_per_second":	1.00028e+09,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	9.00016,
+				"end":	10.0002,
+				"seconds":	1.00007,
+				"bytes":	125042688,
+				"bits_per_second":	1.00028e+09,
+				"omitted":	false
+			}
+		}, {
+			"streams":	[{
+					"socket":	5,
+					"start":	10.0002,
+					"end":	10.0364,
+					"seconds":	0.0362229,
+					"bytes":	0,
+					"bits_per_second":	0,
+					"omitted":	false
+				}],
+			"sum":	{
+				"start":	10.0002,
+				"end":	10.0364,
+				"seconds":	0.0362229,
+				"bytes":	0,
+				"bits_per_second":	0,
+				"omitted":	false
+			}
+		}],
+	"end":	{
+		"streams":	[{
+				"sender":	{
+					"socket":	5,
+					"start":	0,
+					"end":	10.0364,
+					"seconds":	10.0364,
+					"bytes":	1242447192,
+					"bits_per_second":	9.90348e+08,
+					"retransmits":	1172
+				},
+				"receiver":	{
+					"socket":	5,
+					"start":	0,
+					"end":	10.0364,
+					"seconds":	10.0364,
+					"bytes":	1242447192,
+					"bits_per_second":	9.90348e+08
+				}
+			}],
+		"sum_sent":	{
+			"start":	0,
+			"end":	10.0364,
+			"seconds":	10.0364,
+			"bytes":	1242447192,
+			"bits_per_second":	9.90348e+08,
+			"retransmits":	1172
+		},
+		"sum_received":	{
+			"start":	0,
+			"end":	10.0364,
+			"seconds":	10.0364,
+			"bytes":	1242447192,
+			"bits_per_second":	9.90348e+08
+		},
+		"cpu_utilization_percent":	{
+			"host_total":	9.7909,
+			"host_user":	0.296095,
+			"host_system":	9.49481,
+			"remote_total":	7.29681,
+			"remote_user":	0.291395,
+			"remote_system":	7.00547
+		}
+	}
+}
+{
+	"start":	{
+		"connected":	[],
+		"version":	"iperf 3.0.7",
+		"system_info":	"Linux iperf3-dep1 4.15.0-43-generic #46~16.04.1-Ubuntu SMP Fri Dec 7 13:31:08 UTC 2018 x86_64 GNU/Linux\n"
+	},
+	"intervals":	[],
+	"end":	{
+	},
+	"error":	"interrupt - the server has terminated"
+}

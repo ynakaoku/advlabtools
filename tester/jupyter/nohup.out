@@ -1813,3 +1813,1051 @@ Shutdown this notebook server (y/[n])? [C 10:44:23.255 NotebookApp] received sig
 [C 10:44:23.419 NotebookApp] received signal 2, stopping
 [C 10:44:23.706 NotebookApp] received signal 2, stopping
 [I 10:44:23.909 NotebookApp] Kernel shutdown: 46a9bc38-3f9b-4a0e-91d8-4c8f7d4d9533
+[C 15:08:48.177 NotebookApp] No such file or directory: /home/vmware/advlabtools/tester/jupyter/^
+[I 15:09:12.595 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[I 15:09:14.041 NotebookApp] Serving notebooks from local directory: /home/vmware/advlabtools/tester/jupyter
+[I 15:09:14.042 NotebookApp] The Jupyter Notebook is running at:
+[I 15:09:14.042 NotebookApp] http://172.16.128.54:8888/?token=57a14e743bf2ed645e1923165cb340932a387274bfe3f9be
+[I 15:09:14.042 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 15:09:14.046 NotebookApp] No web browser found: could not locate runnable browser.
+[C 15:09:14.046 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///run/user/1000/jupyter/nbserver-8957-open.html
+    Or copy and paste one of these URLs:
+        http://172.16.128.54:8888/?token=57a14e743bf2ed645e1923165cb340932a387274bfe3f9be
+[I 15:09:34.751 NotebookApp] 302 GET / (172.16.112.35) 0.85ms
+[I 15:09:34.756 NotebookApp] 302 GET /tree? (172.16.112.35) 0.93ms
+[W 15:09:41.722 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.58ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 15:09:53.678 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.11ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[E 15:10:54.106 NotebookApp] Uncaught exception POST /login?next=%2Ftree%3F (172.16.112.35)
+    HTTPServerRequest(protocol='http', host='172.16.128.54:8888', method='POST', uri='/login?next=%2Ftree%3F', version='HTTP/1.1', remote_ip='172.16.112.35')
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1697, in _execute
+        result = method(*self.path_args, **self.path_kwargs)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/login.py", line 88, in post
+        set_password(new_password, config_file=config_file)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 148, in set_password
+        config.NotebookApp.password = hashed_password
+      File "/usr/lib/python3.5/contextlib.py", line 66, in __exit__
+        next(self.gen)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 131, in persist_config
+        with io.open(config_file, 'w', encoding='utf8') as f:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/vmware/.jupyter/jupyter_notebook_config.json'
+[E 15:10:54.119 NotebookApp] {
+      "Upgrade-Insecure-Requests": "1",
+      "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36",
+      "Connection": "keep-alive",
+      "Origin": "http://172.16.128.54:8888",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "_xsrf=2|75186bb6|63e67a864571c1afdcb5e114f73dff21|1553494174",
+      "Host": "172.16.128.54:8888",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+      "Referer": "http://172.16.128.54:8888/login?next=%2Ftree%3F",
+      "Cache-Control": "max-age=0",
+      "Content-Length": "148",
+      "Accept-Encoding": "gzip, deflate"
+    }
+[E 15:10:54.119 NotebookApp] 500 POST /login?next=%2Ftree%3F (172.16.112.35) 15.27ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[E 15:10:58.379 NotebookApp] Uncaught exception POST /login?next=%2Ftree%3F (172.16.112.35)
+    HTTPServerRequest(protocol='http', host='172.16.128.54:8888', method='POST', uri='/login?next=%2Ftree%3F', version='HTTP/1.1', remote_ip='172.16.112.35')
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1697, in _execute
+        result = method(*self.path_args, **self.path_kwargs)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/login.py", line 88, in post
+        set_password(new_password, config_file=config_file)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 148, in set_password
+        config.NotebookApp.password = hashed_password
+      File "/usr/lib/python3.5/contextlib.py", line 66, in __exit__
+        next(self.gen)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 131, in persist_config
+        with io.open(config_file, 'w', encoding='utf8') as f:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/vmware/.jupyter/jupyter_notebook_config.json'
+[E 15:10:58.381 NotebookApp] {
+      "Upgrade-Insecure-Requests": "1",
+      "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36",
+      "Connection": "keep-alive",
+      "Origin": "http://172.16.128.54:8888",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "_xsrf=2|75186bb6|63e67a864571c1afdcb5e114f73dff21|1553494174; username-172-16-128-54-8888=\"2|1:0|10:1553494254|27:username-172-16-128-54-8888|44:NDVmZWY4Y2ZmMzNmNDQwNDhhOTc3M2E4YTdiMzA5YjA=|9bab49813a53c691b2c7b918f37842d91700d2995d5252b4d7a02691cc28cf3d\"",
+      "Host": "172.16.128.54:8888",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+      "Referer": "http://172.16.128.54:8888/login?next=%2Ftree%3F",
+      "Cache-Control": "max-age=0",
+      "Content-Length": "148",
+      "Accept-Encoding": "gzip, deflate"
+    }
+[E 15:10:58.381 NotebookApp] 500 POST /login?next=%2Ftree%3F (172.16.112.35) 3.31ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[I 15:11:08.333 NotebookApp] 302 GET / (172.16.112.35) 0.71ms
+[W 15:11:16.942 NotebookApp] 401 POST /login?next=%2F (172.16.112.35) 2.04ms referer=http://172.16.128.54:8888/login
+[W 15:11:21.332 NotebookApp] 401 POST /login?next=%2F (172.16.112.35) 1.97ms referer=http://172.16.128.54:8888/login?next=%2F
+[W 15:11:27.985 NotebookApp] 401 POST /login?next=%2F (172.16.112.35) 2.19ms referer=http://172.16.128.54:8888/login?next=%2F
+[W 15:11:32.283 NotebookApp] 401 POST /login?next=%2F (172.16.112.35) 2.03ms referer=http://172.16.128.54:8888/login?next=%2F
+[E 15:11:39.966 NotebookApp] Uncaught exception POST /login?next=%2F (172.16.112.35)
+    HTTPServerRequest(protocol='http', host='172.16.128.54:8888', method='POST', uri='/login?next=%2F', version='HTTP/1.1', remote_ip='172.16.112.35')
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1697, in _execute
+        result = method(*self.path_args, **self.path_kwargs)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/login.py", line 88, in post
+        set_password(new_password, config_file=config_file)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 148, in set_password
+        config.NotebookApp.password = hashed_password
+      File "/usr/lib/python3.5/contextlib.py", line 66, in __exit__
+        next(self.gen)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 131, in persist_config
+        with io.open(config_file, 'w', encoding='utf8') as f:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/vmware/.jupyter/jupyter_notebook_config.json'
+[E 15:11:39.968 NotebookApp] {
+      "Upgrade-Insecure-Requests": "1",
+      "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36",
+      "Connection": "keep-alive",
+      "Origin": "http://172.16.128.54:8888",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "_xsrf=2|75186bb6|63e67a864571c1afdcb5e114f73dff21|1553494174",
+      "Host": "172.16.128.54:8888",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+      "Referer": "http://172.16.128.54:8888/login?next=%2F",
+      "Cache-Control": "max-age=0",
+      "Content-Length": "148",
+      "Accept-Encoding": "gzip, deflate"
+    }
+[E 15:11:39.968 NotebookApp] 500 POST /login?next=%2F (172.16.112.35) 3.87ms referer=http://172.16.128.54:8888/login?next=%2F
+[E 15:11:44.159 NotebookApp] Uncaught exception POST /login?next=%2F (172.16.112.35)
+    HTTPServerRequest(protocol='http', host='172.16.128.54:8888', method='POST', uri='/login?next=%2F', version='HTTP/1.1', remote_ip='172.16.112.35')
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1697, in _execute
+        result = method(*self.path_args, **self.path_kwargs)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/login.py", line 88, in post
+        set_password(new_password, config_file=config_file)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 148, in set_password
+        config.NotebookApp.password = hashed_password
+      File "/usr/lib/python3.5/contextlib.py", line 66, in __exit__
+        next(self.gen)
+      File "/usr/local/lib/python3.5/dist-packages/notebook/auth/security.py", line 131, in persist_config
+        with io.open(config_file, 'w', encoding='utf8') as f:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/vmware/.jupyter/jupyter_notebook_config.json'
+[E 15:11:44.160 NotebookApp] {
+      "Upgrade-Insecure-Requests": "1",
+      "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36",
+      "Connection": "keep-alive",
+      "Origin": "http://172.16.128.54:8888",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Cookie": "_xsrf=2|75186bb6|63e67a864571c1afdcb5e114f73dff21|1553494174; username-172-16-128-54-8888=\"2|1:0|10:1553494299|27:username-172-16-128-54-8888|44:YjAzZGNmYWZmMDRkNGZkNWExMzcyYTUzNmVmYTgyZWY=|1a9665a02a54b06455d9244797f22b648abbd33700eb42860e84a47e683e4626\"",
+      "Host": "172.16.128.54:8888",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+      "Referer": "http://172.16.128.54:8888/login?next=%2F",
+      "Cache-Control": "max-age=0",
+      "Content-Length": "148",
+      "Accept-Encoding": "gzip, deflate"
+    }
+[E 15:11:44.161 NotebookApp] 500 POST /login?next=%2F (172.16.112.35) 3.32ms referer=http://172.16.128.54:8888/login?next=%2F
+[I 15:12:17.177 NotebookApp] Writing notebook-signing key to /home/vmware/.local/share/jupyter/notebook_secret
+[W 15:12:17.180 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+[I 15:12:17.880 NotebookApp] Kernel started: 1a3367d3-85d2-4d46-b446-a740cb254cf9
+[I 15:12:19.779 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+[I 15:14:17.870 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:14:17.870 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+[I 15:30:17.816 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:30:17.817 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 15:34:17.812 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:34:17.813 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 15:36:18.777 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:36:18.778 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 15:40:17.778 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:40:17.779 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+[I 15:42:17.776 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:42:17.777 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 15:44:17.767 NotebookApp] Saving file at /k8s-iperf-test.ipynb
+[W 15:44:17.768 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[W 15:45:24.762 NotebookApp] 404 GET /api/contents/iper.ipynb?type=notebook&content=0&_=1553495829868 (172.16.112.35): No such file or directory: iper.ipynb
+[W 15:45:24.762 NotebookApp] No such file or directory: iper.ipynb
+[W 15:45:24.763 NotebookApp] 404 GET /api/contents/iper.ipynb?type=notebook&content=0&_=1553495829868 (172.16.112.35) 2.24ms referer=http://172.16.128.54:8888/notebooks/k8s-iperf-test.ipynb
+[I 15:45:24.780 NotebookApp] Uploading file to /iper.ipynb
+[W 15:45:24.781 NotebookApp] Notebook iper.ipynb is not trusted
+[W 15:45:50.365 NotebookApp] 404 GET /api/contents/k8s_iperf3_test2.ipynb?type=notebook&content=0&_=1553495829870 (172.16.112.35): No such file or directory: k8s_iperf3_test2.ipynb
+[W 15:45:50.366 NotebookApp] No such file or directory: k8s_iperf3_test2.ipynb
+[W 15:45:50.366 NotebookApp] 404 GET /api/contents/k8s_iperf3_test2.ipynb?type=notebook&content=0&_=1553495829870 (172.16.112.35) 2.01ms referer=http://172.16.128.54:8888/notebooks/iper.ipynb
+[I 15:45:50.383 NotebookApp] Uploading file to /k8s_iperf3_test2.ipynb
+[W 15:45:50.384 NotebookApp] Notebook k8s_iperf3_test2.ipynb is not trusted
+[I 15:46:29.528 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 15:46:29.528 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[W 15:46:40.904 NotebookApp] Notebook k8s-iperf-test.ipynb is not trusted
+[I 15:46:41.564 NotebookApp] Kernel started: 87e8b7c6-a98e-47ed-b153-0f5831667a53
+[I 15:46:43.454 NotebookApp] Adapting to protocol v5.1 for kernel 87e8b7c6-a98e-47ed-b153-0f5831667a53
+[I 15:46:55.204 NotebookApp] Starting buffering for 87e8b7c6-a98e-47ed-b153-0f5831667a53:1408088b19ef46ab80823d65c776ff94
+[I 15:47:07.266 NotebookApp] Kernel shutdown: 87e8b7c6-a98e-47ed-b153-0f5831667a53
+[W 15:47:07.269 NotebookApp] delete /k8s-iperf-test.ipynb
+[I 19:17:42.405 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:19d06840fbe5453fa5ab28acb08e9c3c
+[I 18:14:22.544 NotebookApp] 302 GET / (172.16.112.35) 1.21ms
+[W 18:14:25.968 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:14:26.892 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+[I 18:16:26.866 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:16:26.868 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:18:26.871 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:18:26.871 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:20:26.858 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:20:26.858 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:22:26.843 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:22:26.844 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:48:26.773 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:48:26.774 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:50:26.769 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:50:26.769 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:52:26.767 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:52:26.768 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 18:54:26.767 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 18:54:26.768 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 23:44:25.888 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:44:25.889 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 23:46:25.884 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:46:25.884 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 23:48:25.875 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:48:25.876 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 23:49:11.519 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:49:11.520 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 23:50:25.877 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:50:25.878 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+command terminated with exit code 1
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+
+
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+too many errors, exiting
+
+
+
+
+too many errors, exiting
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+command terminated with exit code 1
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+[I 23:52:25.866 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 23:52:25.867 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+
+
+too many errors, exiting
+
+
+
+too many errors, exiting
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+[I 00:06:25.835 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 00:06:25.836 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+
+
+
+too many errors, exiting
+warning: this system does not seem to support IPv6 - trying IPv4
+
+
+
+
+
+too many errors, exiting
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+[I 00:10:25.831 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 00:10:25.831 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+command terminated with exit code 1
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep1-7966f8c445-44v5n" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+Error from server (NotFound): pods "iperf3-dep2-59665d47c5-nvbxt" not found
+[I 00:34:25.756 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 00:34:25.757 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+command terminated with exit code 1
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Error from server (NotFound): pods "iperf3-dep3-f48fddcdf-x22q8" not found
+Error from server (NotFound): pods "iperf3-dep4-6699bdfcf9-lqnmm" not found
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 00:42:25.733 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 00:42:25.734 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 00:58:25.686 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 00:58:25.687 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 01:00:25.677 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 01:00:25.677 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 01:01:44.779 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 01:01:44.779 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 22:34:22.124 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 22:34:22.125 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 22:36:22.598 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 22:36:22.598 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:10:26.666 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:10:26.668 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:10:30.868 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:d6962494e3b3485084e39822320413f0
+[W 20:10:35.446 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:10:36.356 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+[I 20:11:49.487 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:11:49.488 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:14:36.304 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:14:36.305 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:16:36.285 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:16:36.286 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:18:36.276 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:18:36.277 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 20:20:36.279 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 20:20:36.280 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 21:54:36.002 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 21:54:36.004 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 21:56:35.999 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 21:56:36.000 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 10:54:33.797 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 10:54:33.799 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 10:56:33.789 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 10:56:33.790 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 13:06:03.984 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:cced16d3a09c4bf3bc5c701215d9cf7e
+[W 13:06:20.991 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 13:06:21.878 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 13:54:21.741 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 13:54:21.742 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 13:56:21.733 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 13:56:21.734 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+[I 13:58:21.729 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 13:58:21.730 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 14:00:21.718 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:00:21.719 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 14:02:21.715 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:02:21.716 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:04:21.712 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:04:21.713 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 14:06:21.736 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:06:21.737 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 14:06:38.353 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:06:38.353 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:06:40.003 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:2949301b150f44d3af3c2ed0fd5ef040
+[W 14:06:42.687 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:06:43.775 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+[I 14:07:41.078 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:07:41.079 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:10:14.413 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:10:14.414 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:11:39.954 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 14:11:39.955 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:11:41.955 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:3db7d8dc20ee47f7bfc6e7b0cbe3ebc0
+[W 14:11:44.183 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[I 14:11:45.090 NotebookApp] Adapting to protocol v5.1 for kernel 1a3367d3-85d2-4d46-b446-a740cb254cf9
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+warning: this system does not seem to support IPv6 - trying IPv4
+warning: this system does not seem to support IPv6 - trying IPv4
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+Unable to use a TTY - input is not a terminal or the right kind of file
+command terminated with exit code 1
+Unable to use a TTY - input is not a terminal or the right kind of file
+[I 15:35:40.853 NotebookApp] Saving file at /k8s_iperf_test2.ipynb
+[W 15:35:40.854 NotebookApp] Notebook k8s_iperf_test2.ipynb is not trusted
+[W 15:03:30.066 NotebookApp] Forbidden
+[W 15:03:30.079 NotebookApp] 403 GET /api/terminals?_=1554265907421 (172.16.112.35) 29.53ms referer=http://172.16.128.54:8888/tree?
+[W 15:03:30.092 NotebookApp] Forbidden
+[W 15:03:30.092 NotebookApp] 403 GET /api/sessions?_=1554265907420 (172.16.112.35) 39.92ms referer=http://172.16.128.54:8888/tree?
+[I 17:11:47.739 NotebookApp] Starting buffering for 1a3367d3-85d2-4d46-b446-a740cb254cf9:1c9c4371521e4908ad17e5132e3fae15
+[W 17:11:48.442 NotebookApp] Forbidden
+[W 17:11:48.443 NotebookApp] 403 GET /api/sessions?_=1554265907422 (172.16.112.35) 1.75ms referer=http://172.16.128.54:8888/tree?
+[W 17:11:48.444 NotebookApp] Forbidden
+[W 17:11:48.445 NotebookApp] 403 GET /api/terminals?_=1554265907423 (172.16.112.35) 0.94ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.665 NotebookApp] Forbidden
+[W 17:44:19.665 NotebookApp] 403 GET /api/config/tree?_=1557306738406 (172.16.112.35) 5.84ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.667 NotebookApp] Forbidden
+[W 17:44:19.668 NotebookApp] 403 GET /api/config/common?_=1557306738407 (172.16.112.35) 0.93ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.685 NotebookApp] Forbidden
+[W 17:44:19.686 NotebookApp] 403 GET /api/terminals?_=1557306738408 (172.16.112.35) 1.71ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.691 NotebookApp] Forbidden
+[W 17:44:19.692 NotebookApp] 403 GET /api/kernelspecs (172.16.112.35) 5.11ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.697 NotebookApp] Forbidden
+[W 17:44:19.697 NotebookApp] 403 GET /api/sessions?_=1557306738409 (172.16.112.35) 0.98ms referer=http://172.16.128.54:8888/tree?
+[W 17:44:19.698 NotebookApp] Forbidden
+[W 17:44:19.699 NotebookApp] 403 GET /api/terminals?_=1557306738410 (172.16.112.35) 0.89ms referer=http://172.16.128.54:8888/tree?
+[I 17:44:24.334 NotebookApp] 302 GET /tree? (172.16.112.35) 10.54ms
+[W 17:44:29.989 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 6.76ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:44:37.446 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.04ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:44:43.747 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.06ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:44:44.771 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.05ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:44:57.180 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.05ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:45:17.481 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.51ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F
+[W 17:45:22.396 NotebookApp] 401 POST /login?next=%2Ftree%3F (172.16.112.35) 2.19ms referer=http://172.16.128.54:8888/login?next=%2Ftree%3F

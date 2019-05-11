@@ -45,7 +45,7 @@ fi
 for instance in "${servers[@]}" ; do
     echo "Stop server on instances ${instance}..."
     if [ ${stypes[i]} = "kubernetes" ] ; then
-        $SCRIPT_DIR/optlib/k8s_server_stop_opt.bash ${instance}
+        $SCRIPT_DIR/optlib/k8s_server_stop_opt.bash ${instance} ${snamespaces[i]}
     else
         ssh root@"${instance}" 'bash -s' < $SCRIPT_DIR/optlib/server_stop_opt.bash
     fi

@@ -1,0 +1,17 @@
+##############################################################################
+Test Report for /home/vmware/advlabtools/tester/REST-API/reports/K8s-test01-iperf3-190331-220823
+##############################################################################
+K8s-test01-cl-.json : 
+  Client: 
+  Server: iperf3-dep1-7966f8c445-44v5n
+  Command: iperf3 -c 172.19.36.2  -i 1 -t 10 -b 1G -J -M 1460 -P 1
+K8s-test01-sv-iperf3-dep1-7966f8c445-44v5n.json : 
+  Server: iperf3-dep1-7966f8c445-44v5n
+  Command: iperf3 -s  -i 1 -J
+K8s-test01-cl-.json : 
+  Client: 
+  Server: iperf3-dep2-59665d47c5-nvbxt
+  Command: iperf3 -c 172.19.36.3  -i 1 -t 10 -b 1G -J -M 1460 -P 1
+K8s-test01-sv-iperf3-dep2-59665d47c5-nvbxt.json : 
+  Server: iperf3-dep2-59665d47c5-nvbxt
+  Command: iperf3 -s  -i 1 -J

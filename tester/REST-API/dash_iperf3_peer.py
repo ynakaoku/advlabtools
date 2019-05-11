@@ -21,6 +21,8 @@ from kubernetes.client.apis import core_v1_api
 # from kubernetes.client.rest import ApiException
 # from kubernetes.stream import stream
 from flask import Flask, jsonify, request, Markup, abort, make_response
+from dash import Dash
+import dash_html_components as html
 
 ### REST API definitions
 api = Flask(__name__)
@@ -237,8 +239,7 @@ key_proc = ".*Physical Cpu\(_Total\)\\\\\% Processor Time"
 
 # get iperf3 test history
 def iperf3_get_test_history():
-#    list_dict = { os.listdir(path='reports') }
-    list_dict = os.listdir(path='reports')
+    list_dict = { os.listdir(path='reports') }
     list_json = json.dumps(list_dict)
     print(list_json)
     return make_response(list_json)
@@ -287,10 +288,6 @@ def iperf3_run_test(content):
                 if j.spec.hostname == i['server']['name']:
                     servers.append(j.metadata.name)
                     snamespaces.append(j.metadata.namespace)
-            if servers == [] or snamespaces == []: 
-                print("Pod %s can not find" % i['server']['name'])
-                res = { "result":False, "pod":i['server']['name'] }
-                return make_response(jsonify(res))
         else:
             servers.append(i['server']['name'])
             snamespaces.append("")
@@ -300,15 +297,10 @@ def iperf3_run_test(content):
                 if j.spec.hostname == i['client']['name']:
                     clients.append(j.metadata.name)
                     cnamespaces.append(j.metadata.namespace)
-            if clients == [] or cnamespaces == []: 
-                print("Pod %s can not find" % i['client']['name'])
-                res = { "result":False, "pod":i['client']['name'] }
-                return make_response(jsonify(res))
-                    
         else:
-            clients.append(i['client']['name'])
+            clients.append(i['server']['name'])
             cnamespaces.append("")
-
+#        print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
     f = open("/tmp/advlabtools-scenario-temp", "w")
     test_str = ""
     servers_str = ""

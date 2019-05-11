@@ -131,7 +131,7 @@ if [ $ESXTOP ]; then
     done
 fi
 
-echo_switch 'Starting iperf servers on containers...' $SILENT
+echo_switch 'Starting iperf servers on VMs or containers...' $SILENT
 for i in $(seq 0 ${max}) ; do
     OUTPUT_S="/tmp/$TESTNAME-sv-${servers[i]}-$DATE"
     if [ ${stypes[i]} = "kubernetes" ] ; then
@@ -144,7 +144,7 @@ for i in $(seq 0 ${max}) ; do
 done
 sleep 2
 
-echo_switch 'Executing iperf clients on VMs...' $SILENT
+echo_switch 'Executing iperf clients on VMs or containers...' $SILENT
 for i in $(seq 0 ${max}) ; do
     OUTPUT_C="/tmp/$TESTNAME-cl-${clients[i]}-$DATE"
     if [ ${ctypes[i]} = "kubernetes" ] ; then
@@ -164,7 +164,7 @@ do
     ipfstat=false
     for i in $(seq 0 ${max}) ; do
         if [ ${ctypes[i]} = "kubernetes" ] ; then
-            pid=$(kubectl exec -it "${clients[i]}" -- pgrep -x iperf3)
+            pid=$(kubectl exec -it "${clients[i]}" -n "${cnamespaces[i]}" -- pgrep -x iperf3)
             if [ "$pid" ]; then 
                 stat=true
             else
